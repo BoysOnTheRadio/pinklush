@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pink Lush Lounge</title>
+  <link rel="stylesheet" href="pinklush.css">
+  <style>
+      /* Page-specific styles */
+      .instruction-text {
+          font-family: 'Poppins', sans-serif;
+          font-size: 1.2rem;
+          color: #333;
+          margin-bottom: 2rem;
+          text-align: left;
+          width: 100%;
+          max-width: 900px; /* Align with the overall form width */
+          padding-left: 1rem; /* Small padding to match image */
+          font-weight: 500;
+      }
+
+      .pl-section.scheduling {
+          /* Override width for better responsiveness if needed, or keep 80% */
+          width: 90%; /* Adjusted for better fit of three columns */
+          max-width: 1200px; /* Max width for the form */
+          padding: 2rem; /* Adjusted padding */
+          gap: 1.5rem; /* Adjusted gap */
+      }
+
+      .scheduling-grid {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap; /* Allows boxes to wrap on smaller screens */
+          justify-content: center; /* Center items when wrapped */
+          align-items: flex-start; /* Align items to the top */
+          gap: 2rem; /* Space between the three main boxes */
+          width: 100%;
+      }
+
+      .schedule-box {
+          flex: 1; /* Allows boxes to grow and shrink */
+          min-width: 280px; /* Minimum width before wrapping */
+          max-width: 350px; /* Max width for each box */
+          background-color: rgb(245, 235, 237); /* Light pinkish grey background */
+          border-radius: 10px;
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+          border: 1px solid rgba(255, 105, 180, 0.2); /* Light pink border */
+      }
+
+      .schedule-box h2 {
+          margin-bottom: 0.5rem; /* Adjust header margin */
+      }
+
+      .note-text {
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.85rem;
+          color: #666;
+          margin-bottom: 1rem;
+          text-align: center;
+      }
+
+      .pl-scroll-section {
+          width: 100%;
+          max-height: 300px; /* Max height for scrollable areas */
+          overflow-y: auto;
+          border-radius: 8px;
+          background-color: rgb(255, 240, 245); /* Very light pink for scrollable background */
+          padding: 0.5rem;
+          border: 1px solid rgba(255, 105, 180, 0.1);
+      }
+
+      /* Custom Scrollbar Styles (for WebKit browsers) */
+      .pl-scroll-section::-webkit-scrollbar {
+          width: 8px;
+          border-radius: 4px;
+      }
+
+      .pl-scroll-section::-webkit-scrollbar-track {
+          background: rgb(255, 223, 228); /* Light pink track */
+          border-radius: 4px;
+      }
+
+      .pl-scroll-section::-webkit-scrollbar-thumb {
+          background: hotpink; /* Hot pink thumb */
+          border-radius: 4px;
+      }
+
+      .pl-scroll-section::-webkit-scrollbar-thumb:hover {
+          background: #ff1493; /* Darker pink on hover */
+      }
+
+      .service-provider-list,
+      .time-slot-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem; /* Space between items */
+          padding: 0.5rem;
+      }
+
+      .provider-item,
+      .time-slot-item {
+          width: 100%;
+          padding: 0.8rem 1rem;
+          background-color: rgb(255, 240, 245); /* Light pink */
+          border: 1px solid rgba(255, 105, 180, 0.3);
+          border-radius: 5px;
+          text-align: center;
+          cursor: pointer;
+          font-family: 'Poppins', sans-serif;
+          font-size: 1rem;
+          color: #333;
+          transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .provider-item:hover,
+      .time-slot-item:hover {
+          background-color: rgb(255, 223, 228); /* Slightly darker pink on hover */
+          border-color: hotpink;
+          transform: translateY(-2px);
+      }
+
+      .provider-item.selected,
+      .time-slot-item.selected {
+          background-color: rgb(255, 223, 228); /* Already defined in global CSS for .selected */
+          outline: 4px solid hotpink; /* Already defined */
+          transform: translateY(0);
+      }
+
+      .none-button {
+          margin-top: 1rem;
+          width: 80%; /* Adjust width for the "None" button */
+      }
+
+      .confirm-button {
+          margin-top: auto; /* Pushes button to the bottom */
+          width: 90%; /* Adjust width for the "Confirm Schedule" button */
+      }
+
+      /* Calendar Specific Styles */
+      .calendar-box {
+          gap: 1.5rem; /* Adjust gap for calendar elements */
+      }
+
+      .calendar-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          margin-bottom: 0.5rem;
+      }
+
+      .calendar-nav-btn {
+          background: none;
+          border: 1px solid hotpink;
+          color: hotpink;
+          padding: 0.5rem 0.8rem;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1.2rem;
+          font-weight: bold;
+          transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .calendar-nav-btn:hover {
+          background-color: hotpink;
+          color: #fff;
+      }
+
+      .month-year {
+          font-family: 'Playfair Display', serif;
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #333;
+          text-transform: uppercase;
+      }
+
+      .calendar-grid {
+          display: flex; /* Changed to flex */
+          flex-wrap: wrap; /* Allow items to wrap */
+          gap: 0.5rem; /* Space between items */
+          width: 100%;
+          padding: 1rem;
+          background-color: rgb(255, 240, 245); /* Light pink background for grid */
+          border-radius: 8px;
+          border: 1px solid rgba(255, 105, 180, 0.1);
+      }
+
+      .day-header {
+          flex-basis: calc(100% / 7 - 0.5rem); /* Distribute evenly across 7 columns, accounting for gap */
+          text-align: center;
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: hotpink;
+          padding-bottom: 0.5rem;
+      }
+
+      .date-circle {
+          flex-basis: calc(100% / 7 - 0.5rem); /* Distribute evenly across 7 columns, accounting for gap */
+          width: 40px; /* Fixed size for circles */
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Poppins', sans-serif;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          border: none;
+          transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      }
+
+      .date-circle.empty {
+          visibility: hidden; /* Hide empty cells for calendar alignment */
+          cursor: default;
+      }
+
+      .date-circle.booked {
+          background-color: rgb(180, 130, 140); /* Darker pink/grey for booked */
+          color: #fff;
+          cursor: not-allowed; /* Indicate it's not selectable */
+      }
+
+      .date-circle.available {
+          background-color: rgb(255, 240, 245); /* Very light pink for available */
+          color: #333;
+          border: 1px solid rgba(255, 105, 180, 0.3);
+      }
+
+      .date-circle.available:hover {
+          background-color: rgb(255, 223, 228);
+          transform: scale(1.05);
+      }
+
+      .date-circle.selected {
+          outline: 3px solid hotpink;
+          background-color: rgb(255, 223, 228);
+          color: #333;
+      }
+
+      .calendar-legend {
+          display: flex;
+          gap: 1.5rem;
+          margin-top: 1rem;
+          align-items: center;
+      }
+
+      .legend-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.9rem;
+          color: #555;
+      }
+
+      .legend-color {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+      }
+
+      .legend-color.booked {
+          background-color: rgb(180, 130, 140);
+      }
+
+      .legend-color.available {
+          background-color: rgb(255, 240, 245);
+          border: 1px solid rgba(255, 105, 180, 0.3);
+      }
+
+      .legend-label {
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.8rem;
+          color: #777;
+          margin-top: 0.5rem;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1024px) {
+          .scheduling-grid {
+              flex-direction: column; /* Stack boxes vertically on smaller screens */
+              align-items: center;
+          }
+          .schedule-box {
+              max-width: 400px; /* Allow boxes to be wider when stacked */
+              width: 90%;
+          }
+          .pl-section.scheduling {
+              width: 95%;
+              margin: 20px auto;
+          }
+      }
+
+      @media (max-width: 768px) {
+          .pl-section.scheduling {
+              padding: 1.5rem;
+              gap: 1rem;
+          }
+          .schedule-box {
+              padding: 1rem;
+              gap: 0.8rem;
+          }
+          .instruction-text {
+              font-size: 1rem;
+              margin-bottom: 1.5rem;
+          }
+          #pl-header-c {
+              font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+          }
+          #pl-header-b {
+              font-size: clamp(1.5rem, 4vw, 2rem);
+          }
+          .month-year {
+              font-size: 1.2rem;
+          }
+          .date-circle {
+              width: 35px;
+              height: 35px;
+              font-size: 0.9rem;
+          }
+          .calendar-grid {
+              padding: 0.8rem;
+              gap: 0.4rem;
+          }
+          .provider-item,
+          .time-slot-item {
+              font-size: 0.9rem;
+              padding: 0.6rem 0.8rem;
+          }
+          .btn.primary {
+              height: 45px;
+              font-size: 1rem;
+          }
+      }
+  </style>
+</head>
+<body>
+  <section class="pinklush_background">
+      <form class="pl-section scheduling">
+          <p class="instruction-text">Instruction: Please select preferred service provider (if any), date, and time.</p>
+          <div class="scheduling-grid">
+              <div class="schedule-box service-provider-box">
+                  <h2 id="pl-header-c">Select Service Provider</h2>
+                  <p class="note-text">Note: If none, please select "None"</p>
+                  <div class="pl-scroll-section">
+                      <div class="service-provider-list">
+                          <button type="button" class="provider-item" data-category="provider">Christina C. Gomez</button>
+                          <button type="button" class="provider-item" data-category="provider">Jessica L. Smith</button>
+                          <button type="button" class="provider-item" data-category="provider">Emily R. Johnson</button>
+                          <button type="button" class="provider-item" data-category="provider">Sarah M. Davis</button>
+                          <button type="button" class="provider-item" data-category="provider">Laura P. Wilson</button>
+                          <button type="button" class="provider-item" data-category="provider">Olivia K. Brown</button>
+                          <button type="button" class="provider-item" data-category="provider">Sophia A. Miller</button>
+                          <button type="button" class="provider-item" data-category="provider">Mia T. Garcia</button>
+                          <button type="button" class="provider-item" data-category="provider">Ava B. Rodriguez</button>
+                          <button type="button" class="provider-item" data-category="provider">Isabella C. Martinez</button>
+                      </div>
+                  </div>
+                  <button type="button" class="btn primary none-button" data-category="provider" data-value="none">None</button>
+              </div>
+              <div class="schedule-box calendar-box">
+                  <h2 id="pl-header-b">Scheduling Calendar</h2>
+                  <div class="calendar-header">
+                      <button type="button" class="calendar-nav-btn" id="prevMonthBtn" aria-label="Previous Month">&lt;</button>
+                      <span class="month-year" id="currentMonthYear">-MONTH-YEAR-</span>
+                      <button type="button" class="calendar-nav-btn" id="nextMonthBtn" aria-label="Next Month">&gt;</button>
+                  </div>
+                  <div class="calendar-grid" id="calendarGrid">
+                      <div class="day-header">Mo</div>
+                      <div class="day-header">Tu</div>
+                      <div class="day-header">We</div>
+                      <div class="day-header">Th</div>
+                      <div class="day-header">Fr</div>
+                      <div class="day-header">Sa</div>
+                      <div class="day-header">Su</div>
+                      <!-- Date circles will be dynamically inserted here by JavaScript -->
+                  </div>
+                  <div class="calendar-legend">
+                      <div class="legend-item">
+                          <span class="legend-color booked"></span>
+                          <span>Fully Booked</span>
+                      </div>
+                      <div class="legend-item">
+                          <span class="legend-color available"></span>
+                          <span>Available</span>
+                      </div>
+                  </div>
+                  <p class="legend-label">Calendar Legend</p>
+              </div>
+              <div class="schedule-box time-slot-box">
+                  <h2 id="pl-header-c">Select Time</h2>
+                  <div class="pl-scroll-section">
+                      <div class="time-slot-list">
+                          <button type="button" class="time-slot-item" data-category="time">0:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">1:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">2:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">3:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">4:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">5:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">6:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">7:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">8:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">9:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">10:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">11:00AM</button>
+                          <button type="button" class="time-slot-item" data-category="time">12:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">1:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">2:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">3:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">4:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">5:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">6:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">7:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">8:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">9:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">10:00PM</button>
+                          <button type="button" class="time-slot-item" data-category="time">11:00PM</button>
+                      </div>
+                  </div>
+                  <button type="submit" class="btn primary confirm-button" id="confirmScheduleBtn" disabled>Confirm Schedule</button>
+              </div>
+          </div>
+      </form>
+  </section>
+  <script src="pinklush.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Admin Status</title>
 <link rel="stylesheet" href="pinklush_admin.css">
 <style>
   .bookings-header {
@@ -89,6 +89,34 @@
   }
 
   @media (max-width: 1024px) {
+  .dashboard-main {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 105, 180, 0.2);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+  }
+  .nav-button {
+    width: auto;
+    flex-grow: 1;
+    max-width: 180px;
+    text-align: center;
+  }
+  .dashboard-header {
+    padding: 1rem 1.5rem;
+  }
+  .site-name {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  .content-area {
+    padding: 1.5rem;
+  }
   .bookings-header {
     font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
@@ -108,12 +136,13 @@
 <section class="admin_bg">
     <div class="dashboard-container">
         <header class="dashboard-header">
-            <div class="site-name">Pink Lush Beauty Lounge</div>
+            <div class="site-name">Site Name</div>
             <div class="user-name">Name</div>
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "" class="nav-button active">Dashboard</a>
+                <a href = "" class="nav-button">Dashboard</a>
+                <a href = "admin-status.html" class="nav-button active">Status</a>
                 <a href = "admin-modify-profile.html" class="nav-button">Modify Profile</a>
                 <a href = "admin-modify-service.html" class="nav-button">Modify Service</a>
                 <a href = "admin-modify-user.html" class="nav-button">Modify User</a>
@@ -128,7 +157,6 @@
                     <table class="bookings-table">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Name</th>
                                 <th>Service</th>
                                 <th>Date</th>
@@ -136,7 +164,6 @@
                                 <th>Number</th>
                                 <th>Facebook User</th>
                                 <th>Instagram User</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>

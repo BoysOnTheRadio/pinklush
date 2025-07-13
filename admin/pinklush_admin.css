@@ -142,6 +142,10 @@ body {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -221,6 +225,11 @@ body {
   gap: 1.5rem;
 }
 
+a#admin-logout {
+  margin-bottom: 500px;
+  background-color: yellow;
+}
+
 @media (max-width: 1024px) {
   .dashboard-main {
     flex-direction: column;
@@ -249,17 +258,5 @@ body {
   }
   .content-area {
     padding: 1.5rem;
-  }
-  .bookings-header {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
-  }
-  .search-bar {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-  }
-  .bookings-table th,
-  .bookings-table td {
-    padding: 0.8rem 1rem;
-    font-size: 0.85rem;
   }
 }

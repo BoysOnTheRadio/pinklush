@@ -8,7 +8,6 @@
     <style>
         .form-group {
             padding: 10px;
-            /* background-color: gray; */
             display: flex;
             flex-direction: column;
             width: 95%;
@@ -22,15 +21,21 @@
         }
             .form-group input {
                 border: none;
+                background-color: rgb(255, 245, 248);
                 height: 45px;
                 border-radius: 7.5px;
                 width: 100%;
                 margin: 10px 0;
                 padding-left: 15px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                transition: 0.5s ease all;
             }
 
                 .form-group input:focus {
-                    outline: 2px solid hotpink;
+                    outline: none;
+                    border-color: hotpink;
+                    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
                 }
 
                 .form-group ::placeholder {
