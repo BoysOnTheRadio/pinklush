@@ -1,1 +1,1 @@
-# Pink-Lush-Lounge
+# Pink-Lush-Beauty-Lounge
