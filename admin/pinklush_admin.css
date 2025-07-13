@@ -47,6 +47,17 @@ body {
   margin-bottom: 1rem;
 }
 
+#pl-admin-header-c {
+  font-family: "Playfair Display", serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2rem, 2rem);
+  font-weight: 800;
+  color: transparent;
+  background: linear-gradient(125deg, #d63384, #e91e63, #ff69b4, #ff1493, #c2185b, #ad1457);
+  background-clip: text;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

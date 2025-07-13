@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Admin User</title>
 <link rel="stylesheet" href="pinklush_admin.css">
     <style>
         .form-group {
@@ -12,11 +12,20 @@
             flex-direction: column;
             width: 95%;
             align-items: flex-start;
-            margin: -10px 0 -30px 0;
+            margin: -10px 0 -25px 0;
         }
 
         .customer {
-            width: 100%;
+            background-color: #ffdfee;
+            outline: 2px solid hotpink;
+            border-radius: 15px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
             .cinfo {
@@ -60,7 +69,32 @@
 
             #base-option {
                 color: gray;
+                cursor: not-allowed;
             }
+    
+            .pl-select-option {
+                border: 1px solid rgba(255, 105, 180, 0.2);
+                background-color: rgb(255, 245, 248);
+                height: 45px;
+                border-radius: 7.5px;
+                width: 100%;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+                font-family: 'Poppins', sans-serif;
+                color: #333;
+                transition: 0.5s ease all;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+            }
+            
+            
+
+                .pl-select-option:focus {
+                    outline: none;
+                    border-color: hotpink;
+                    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+                }
     </style>
 </head>
 <body>
@@ -73,15 +107,15 @@
         <main class="dashboard-main">
             <nav class="sidebar">
                 <a href = "admin-dashboard.html" class="nav-button">Dashboard</a>
+                <a href = "admin-add-user.html" class="nav-button active">Add User</a>
                 <a href = "admin-modify-profile.html" class="nav-button">Modify Profile</a>
                 <a href = "admin-modify-service.html" class="nav-button">Modify Service</a>
-                <a href = "admin-modify-user.html" class="nav-button active">Modify User</a>
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area cinfo">
                 
-            <form class="pl-admin-section customer" action = "landing-page.html" method = "POST">
-            <h1 id = "pl-header-a">User Information Sheet</h1>
+            <form class="customer" action = "landing-page.html" method = "POST">
+            <h1 id = "pl-admin-header-c">User Information Sheet</h1>
 
             <div class="form-group">
                 <label for = "customer_name" class = "pl-input-label">Name</label>
