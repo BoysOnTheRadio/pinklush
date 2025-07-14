@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branch Selection</title>
-    <link rel = "stylesheet" href = "pinklush.css">
-    <style>
-    /* Branch Selection Boxes */
-        .branch-items {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Branch Selection</title>
+  <link rel="stylesheet" href="pinklush.css">
+  <style>
+    .branch-items {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,116 +14,127 @@
             width: 100%;
         }
 
-        .branch-box {
+    .branch-box {
+      filter: brightness(0.9);
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 400px;
+      border-radius: 10px;
+      align-items: center;
+      background-color: rgb(255, 217, 246);
+      gap: 10px;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin: 20px;
+    }
+
+        .branch-box:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .image-wrapper {
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+        position: relative;
+        outline: 3px solid pink;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        }
+            .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             filter: brightness(0.9);
-            display: flex;
+            transition: filter 0.5s ease;
+            }
+
+            .branch-box:hover .image-wrapper img {
+            filter: brightness(1);
+            }
+
+                .selected {
+                    outline: hotpink 5px solid;
+                }
+
+    .branch-details {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+        .branch-details h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #e91e63;
+        margin-bottom: 0.5rem;
+        }
+
+        .branch-details p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 1rem;
+        }
+
+    .branch-details button {
+      margin-top: auto;
+      align-self: flex-end;
+    }
+    
+    @media (max-width: 868px) {
+        .branch-items {
             flex-direction: column;
-            width: 45%;
-            height: 300px;
-            border-radius: 10px;
-            padding: 25px;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(255, 217, 246);
-            margin: 10px;
-            gap: 10px;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
-
-            .branch-box:hover {
-                filter: brightness(1);
-                transform: scale(1.05) translateY(-15px);
-            }
-
-                .branch-box:hover .image-wrapper {
-                    outline: 6px solid pink;
-                }
-
-                .branch-box:hover .image-wrapper:before {
-                    opacity: 0.15;
-                    transform: rotate(5deg) translate(500px, -50px);
-                }
-
-                    .image-wrapper {
-                    display: flex;
-                    outline: 4px white solid;
-                    border-radius: 2.5px;;
-                    width: 95%;
-                    overflow: hidden;
-                    position: relative;
-                    outline: 3px solid pink;
-                    min-height: 100px;
-                    min-width: 100px;
-                    margin: 10px;
-                    }
-
-                    .image-wrapper:before {
-                        position: absolute;
-                        background-color: white;
-                        content: '';
-                        height: 400px;
-                        width: 75px;
-                        opacity: 0.8;
-                        box-shadow: 0 0 10px white;
-                        transform: rotate(5deg) translate(-300px, -50px);
-                        transition: all ease 0.75s;
-                    }
-
-        @media (max-width: 800px) {
-            .branch-items {
-                flex-direction: column;
-            }
-            .branch-box {
-            width: 95%;
-            height: 250px;
-            }
-        }
-
-    </style>
+      .branch-box {
+        width: 95%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
-    <section class = "pinklush_background">
-        <form class="pl-section" action = "customer-serviceselection.html" method = "GET">
+  <section class="pinklush_background">
+    <form class="pl-section" action="customer-serviceselection.html" method="GET">
+      <h1 id="pl-header-b">Select Your Nearest Branch</h1>
+      <div class="branch-items">
 
-            <h1 id = "pl-header-a">
-                Select which Branch
-            </h1>
+        <div class="branch-box" data-id="1">
+          <div class="image-wrapper">
+            <img src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="">
+          </div>
+          <div class="branch-details">
+            <h2>City Center</h2>
+            <p>123 Main St, Lapu-Lapu City</p>
+          </div>
+        </div>
 
-            <section class="branch-items">
-                <div class="branch-box">
-                    <p>Branch #</p>
-                    <div class="image-wrapper">
-                        <img src = "data:image/jpeg;base64,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">
-                    </div>
-                    <p>Location, location</p>
-                </div>
-                <div class="branch-box">
-                    <p>Branch #</p>
-                    <div class="image-wrapper">
-                        <img src = "data:image/jpeg;base64,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">
-                    </div>
-                    <p>Location, location</p>
-                </div>
+        <div class="branch-box" data-id="1">
+          <div class="image-wrapper">
+            <img src="https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="">
+          </div>
+          <div class="branch-details">
+            <h2>City Center</h2>
+            <p>123 Main St, Lapu-Lapu City</p>
+          </div>
+        </div>
 
-            <input type = "hidden" name = "branch-id" id = "selected" value = "">
-                
-            </section>
+      </div>
+      <input type="hidden" name="branch-id" id="selected" value="">
+      <button type="submit" class="btn primary">Choose</button>
+    </form>
+  </section>
 
-
-
-                <button class = "btn primary" id = "submit-btn" type = "submit" disabled>
-                    Continue
-                </button>
-        
-            </form>
-    </section>
-
-    <script>
-    // Branch Select
-        const branchbox = document.querySelectorAll('.branch-box');
+  <script>
+    const branchbox = document.querySelectorAll('.branch-box');
         const submitBtn = document.getElementById('submit-btn');
         const hidden = document.getElementById('selected');
 
@@ -136,46 +146,6 @@
             submitBtn.disabled = false;
         });
         });
-
-    // // Fetch BETA
-    // const container = document.querySelector('.branch-items');
-    // fetch( get branches )
-    //     .then(data => {
-    //         if(data.success) {
-    //         data.branches.forEach(branch => {
-    //             const div = document.createElement('div');
-    //             div.classList.add('branch-box');
-    //             div.dataset.id = branch.branch-id;
-    //             div.innerHTML =
-    //             `
-    //             <p>Branch #</p>
-    //                 <div class="image-wrapper">
-    //                     <img src = "data:image/jpeg;base64,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">
-    //                 </div>
-    //                 <p>Location, location</p>
-    //             `;
-    //             container.appendChild(div);
-
-    //             const branchbox = document.querySelectorAll('.branch-box');
-
-
-    //         const submitBtn = document.getElementById('submit-btn');
-    //         const hidden = document.getElementById('selected');
-
-    //         branchbox.forEach(box => {
-    //         box.addEventListener('click', () => {
-    //         document.querySelector('.selected')?.classList.remove('selected');
-    //         box.classList.add('selected');
-    //         hidden.value = box.dataset.id;
-    //         submitBtn.disabled = false;
-    //     });
-    //     });
-    //         })
-            
-    //         } else {
-    //             container.innerHTML = "<p>Could not load branches.</p>";
-    //         }
-    //     })
-    </script>
+  </script>
 </body>
 </html>
