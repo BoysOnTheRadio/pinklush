@@ -25,6 +25,43 @@
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area">
+                <form class="customer" action="landing-page.html" method="POST">
+  <h1 id="pl-admin-header-c">Profile Information</h1>
+
+  <div class="form-group">
+    <label for="customer_name" class="pl-input-label">Name</label>
+    <input type="text" id="customer_name" value="Christina C. Gomez" required>
+  </div>
+
+  <div class="form-group">
+    <label for="employee_id" class="pl-input-label">Employee ID</label>
+    <input type="text" id="employee_id" value="00001" required>
+  </div>
+
+  <div class="form-group">
+    <label for="user-name" class="pl-input-label">Username</label>
+    <input type="text" id="user-name" value="@cstine" required>
+  </div>
+
+  <div class="form-group">
+    <label for="password" class="pl-input-label">Password</label>
+    <input type="password" id="password" value="ch****za" required>
+  </div>
+
+  <div class="form-group">
+    <label for="permissions" class="pl-input-label">Permissions</label>
+    <select class="pl-select-option" id="permissions" required>
+      <option id="base-option" disabled>Select Permissions</option>
+      <option>Customer</option>
+      <option selected>Employee</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn primary">
+    Save Changes
+  </button>
+</form>
+
             </div>
         </main>
     </div>
