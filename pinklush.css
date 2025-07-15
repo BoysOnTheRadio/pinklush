@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+body {
+min-height: 100vh;
+width: 100vw;
+}
+
+/* Pink Lush */
+.pinklush_background {
+background-color: rgb(230, 202, 206);
+background-size: cover;
+background-repeat: no-repeat;
+min-height: 100vh;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+
+  .pl-section {
+  width: 80%;
+  padding: 3rem;
+  border-radius: 15px;
+  text-align: center;
+  gap: 3rem;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 235, 240);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+    #logo {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    margin: 50px;
+    }
+
+    #pl-header-a {
+    font-family: 'Playfair Display', serif;
+    text-transform: capitalize;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 1000;
+    color: transparent;
+    background: linear-gradient(125deg, #d63384, #e91e63, #ff69b4, #ff1493, #c2185b, #ad1457 );
+    background-clip: text;
+    }
+
+    #pl-header-b {
+    font-family: 'Playfair Display', serif;
+    text-transform: capitalize;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: transparent;
+    background: linear-gradient(125deg, #d63384, #e91e63, #ff69b4, #ff1493, #c2185b, #ad1457 );
+    background-clip: text;
+    }
+
+    #pl-header-c {
+    font-family: 'Playfair Display', serif;
+    text-transform: capitalize;
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    font-weight: 800;
+    color: transparent;
+    background: linear-gradient(125deg, #d63384, #e91e63, #ff69b4, #ff1493, #c2185b, #ad1457 );
+    background-clip: text;
+    }
+
+    #pl-subheader {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    color: rgb(255, 101, 127);
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    }
+
+    #pl-highlight {
+    font-weight: 800;
+    font-size: 1.4rem;
+    }
+
+/* Pink Lush Button Assets */
+.btn {
+border: none;
+text-decoration: none;
+position: relative;
+display: inline-flex;
+padding: 0 30px;
+white-space: nowrap;
+justify-content: center;
+align-items: center;
+transition: all 0.5s ease;
+overflow: hidden;
+cursor: pointer;
+font-size: 1.1rem;
+}
+
+.selected {
+  outline: 4px solid hotpink;
+  background-color: rgb(255, 223, 228);
+}
+
+.btn:disabled {
+  background: gray !important;
+  cursor: not-allowed;
+}
+
+  button:disabled:hover {
+    transform: none;
+    filter: none;
+    box-shadow: none;
+  }
+
+  button:disabled:hover::before {
+    opacity: 0;
+    transform: none;
+  }
+
+  .btn.primary {
+  color: #fff;
+  margin: 10px;
+  height: 50px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ff69b4 0%,#ff1493 25%,#e91e63 50%,#d63384 75%,#c2185b 100%);
+  }
+
+    .primary:hover {
+    outline: 3px solid rgb(255, 182, 248);
+    background: linear-gradient(135deg,#ff1493 0%#e91e63 25%,#d63384 50%,#c2185b 75%,#ad1457 100%);
+    box-shadow: 0 15px 15px rgb(0, 0, 0, 0.5);
+    transform: scale(1.1) translateY(-15%);
+    }
+
+    .primary:active {
+    transform: scale(1) translateY(-10%);
+    background: linear-gradient(135deg, #ffcdd2, #f8bbd9, #f48fb1, #e91e63, #c2185b);
+    }
+
+  .primary:before {
+  transition: all 0.5s ease;
+  position: absolute;
+  content: '';
+  width: 15%;
+  height: 150%;
+  box-shadow: 0 0 10px white;
+  filter: blur(2.5px);
+  opacity: 0.8;
+  background: #fff;
+  transform: rotate(-25deg) translateX(-150px) translateY(-65px);
+  }
+
+    .primary:hover:before {
+    opacity: 0.2;
+    transform: rotate(-25deg) translateX(150px) translateY(65px);
+    }
+
+/* Extra  */

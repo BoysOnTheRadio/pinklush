@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Selection</title>
+    <link rel = "stylesheet" href = "pinklush.css">
+</head>
+    <style>
+        .services-group {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            justify-content: center;
+            justify-items: center;
+        }
+        
+            .service-box {
+                cursor: pointer;
+                width: 225px;
+                margin: 4px;
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                border-radius: 5px;
+                transition: all ease 0.4s;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .service-box:hover {
+                    transform: scale(1.05) translateY(-10px);
+                }
+
+                .service-box:active {
+                    background-color: yellow;
+                }
+
+                    .image-wrapper {
+                    display: flex;
+                    outline: 4px white solid;
+                    border-radius: 2.5px;;
+                    width: 95%;
+                    overflow: hidden;
+                    position: relative;
+                    outline: 3px solid pink;
+                    min-height: 100px;
+                    min-width: 100px;
+                    margin: 10px;
+                    }
+
+                    .image-wrapper:before {
+                        position: absolute;
+                        background-color: white;
+                        content: '';
+                        height: 400px;
+                        width: 75px;
+                        opacity: 0.8;
+                        box-shadow: 0 0 10px white;
+                        transform: rotate(5deg) translate(-350px, -50px);
+                        transition: all ease 0.75s;
+                    }
+    </style>
+<body>
+    <section class = "pinklush_background">
+        <form class="pl-section" action = "customer-scheduling.html" method = "GET">
+
+            <h1 id = "pl-header-a">
+                Select service type
+            </h1>
+
+                <div class="services-group">
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+                    <div class="service-box">
+                        <h1>ServiceName</h1>
+                        <p>Duration</p>
+                        <div class = "image-wrapper">
+
+                        </div>
+                        <p>Price</p>
+                        <p>Service Description</p>
+                    </div>
+                    
+
+                    
+                </div>
+
+                <input type = "hidden" name = "service-id" id = "selected" value = "">
+            
+
+
+
+                <button class = "btn primary" id = "submit-btn" type = "submit" disabled>
+                    Customer Scheduling
+                </button>
+        
+            </form>
+        
+    </section>
+        
+    
+    <script>
+        const submitBtn = document.getElementById('submit-btn');
+        const servicebox = document.querySelectorAll('.service-box');
+        const hidden = document.getElementById('selected');
+
+        servicebox.forEach(box => {
+            box.addEventListener('click', () => {
+                document.querySelector('.selected')?.classList.remove('selected');
+                box.classList.add('selected');
+                hidden.value = box.dataset.id;
+                submitBtn.disabled = false;
+            })
+        })
+    </script>
+</body>
+</html>
