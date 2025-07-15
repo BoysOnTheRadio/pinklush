@@ -3,13 +3,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             return params.get('branch-id');
         }
-
         const branchId = getBranchIdFromUrl();
         const servicesGroup = document.querySelector('.services-group');
+        const submitBtn = document.getElementById('submit-btn');
+        const hidden = document.getElementById('selected');
         const form = document.querySelector('form.pl-section');
-            const submitBtn = document.getElementById('submit-btn');
-            const hidden = document.getElementById('selected');
-            const serviceBoxes = document.querySelectorAll('.service-box');
 
         fetch(`api/servicesGET.php?branch_id=${branchId}`)  
             .then(response => response.json())
@@ -34,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     servicesGroup.appendChild(box);
                 });
 
+                // Add click event listeners to each service box
+                const serviceBoxes = document.querySelectorAll('.service-box');
                 serviceBoxes.forEach(box => {
                     box.addEventListener('click', () => {
                         document.querySelector('.selected')?.classList.remove('selected');
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 submitBtn.disabled = true;
             });
 
+            // Intercept form submit to add branch-id and service-id to URL
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const serviceId = hidden.value;
