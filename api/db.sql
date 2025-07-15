@@ -36,9 +36,9 @@ CREATE TABLE employeeservices (
     employee_id INT,
     service_id INT,
     PRIMARY KEY (employee_id, service_id),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
-    FOREIGN KEY (service_id) REFERENCES Services(service_id);
-)
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
+    FOREIGN KEY (service_id) REFERENCES service(service_id)
+);
 
 CREATE TABLE branch_services (
     branch_id INT,
