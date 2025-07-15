@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 require_once "db_connect.php";
 
 $query = "SELECT branch_id, address FROM branch";
-$result = mysqli_query($con, $query);
+$result = mysqli_query($conn, $query);
 
 $branches = [];
 while ($row = mysqli_fetch_assoc($result)) {

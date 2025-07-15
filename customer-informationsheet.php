@@ -62,7 +62,7 @@
     <section class = "pinklush_background">
 
 
-        <form class="pl-section cinfo" action = "landing-page.html" method = "POST">
+        <form class="pl-section cinfo" action = "landing-page.php" method = "POST">
             <h1 id = "pl-header-b">Customer Information Sheet</h1>
 
             <div class="form-group">

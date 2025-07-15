@@ -64,7 +64,7 @@
     </style>
 <body>
     <section class = "pinklush_background">
-        <form class="pl-section" action = "customer-scheduling.html" method = "GET">
+        <form class="pl-section" action = "customer-scheduling.php" method = "GET">
 
             <h1 id = "pl-header-a">
                 Select service type

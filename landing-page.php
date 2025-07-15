@@ -15,7 +15,7 @@
             <p id = "pl-subheader">
                 Your go-to beauty lounge is located at the heart of the city & opens daily for your pampering needs!
             </p>
-                <a href = "customer-branchselection.html" class = "btn primary">
+                <a href = "customer-branchselection.php" class = "btn primary">
                     Book An Appointment Now!
                 </a>
                 </div>
