@@ -12,7 +12,7 @@
             flex-direction: column;
             width: 95%;
             align-items: flex-start;
-            margin: 0 0 -50px 0;
+            margin: 0 0 -35px 0;
         }
 
         .cinfo {

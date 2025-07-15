@@ -1,4 +1,3 @@
-<!-- TEMPORARY WIP -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +37,6 @@
 
       .schedule-box {
           flex: 1;
-          min-width: 280px;
-          max-width: 350px;
           background-color: rgb(245, 235, 237);
           border-radius: 10px;
           padding: 1.5rem;
@@ -141,11 +138,12 @@
 
       .calendar-box {
           gap: 1.5rem;
+          width: 70%;
       }
 
       .calendar-header {
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
           width: 100%;
           margin-bottom: 0.5rem;
@@ -174,17 +172,23 @@
           font-weight: 600;
           color: #333;
           text-transform: uppercase;
+          justify-content: center;
       }
 
       .calendar-grid {
-          display: flex;
-          flex-wrap: wrap;
+          display: grid;
+          max-width: 500px;
+          width: 50%;
           gap: 0.5rem;
-          width: 100%;
           padding: 1rem;
           background-color: rgb(255, 240, 245);
           border-radius: 8px;
           border: 1px solid rgba(255, 105, 180, 0.1);
+          grid-template-columns: repeat(7, 40px); 
+          gap: 0.5rem; 
+          justify-items: center;
+          justify-content: center;
+          
       }
 
       .day-header {
@@ -211,6 +215,8 @@
           cursor: pointer;
           border: none;
           transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+          flex-direction: column;
+          gap: 0.2rem;
       }
 
       .date-circle.empty {
@@ -222,6 +228,8 @@
           background-color: rgb(180, 130, 140);
           color: #fff;
           cursor: not-allowed;
+          display: flex;
+          
       }
 
       .date-circle.available {
@@ -340,33 +348,19 @@
 <body>
   <section class="pinklush_background">
       <form class="pl-section scheduling">
-          <p class="instruction-text">Instruction: Please select preferred service provider (if any), date, and time.</p>
           <div class="scheduling-grid">
               <div class="schedule-box service-provider-box">
                   <h2 id="pl-header-c">Select Service Provider</h2>
                   <p class="note-text">Note: If none, please select "None"</p>
                   <div class="pl-scroll-section">
-                      <div class="service-provider-list">
-                          <button type="button" class="provider-item" data-category="provider">Christina C. Gomez</button>
-                          <button type="button" class="provider-item" data-category="provider">Jessica L. Smith</button>
-                          <button type="button" class="provider-item" data-category="provider">Emily R. Johnson</button>
-                          <button type="button" class="provider-item" data-category="provider">Sarah M. Davis</button>
-                          <button type="button" class="provider-item" data-category="provider">Laura P. Wilson</button>
-                          <button type="button" class="provider-item" data-category="provider">Olivia K. Brown</button>
-                          <button type="button" class="provider-item" data-category="provider">Sophia A. Miller</button>
-                          <button type="button" class="provider-item" data-category="provider">Mia T. Garcia</button>
-                          <button type="button" class="provider-item" data-category="provider">Ava B. Rodriguez</button>
-                          <button type="button" class="provider-item" data-category="provider">Isabella C. Martinez</button>
-                      </div>
+                      <div class="service-provider-list"></div>
                   </div>
                   <button type="button" class="btn primary none-button" data-category="provider" data-value="none">None</button>
               </div>
               <div class="schedule-box calendar-box">
                   <h2 id="pl-header-b">Scheduling Calendar</h2>
                   <div class="calendar-header">
-                      <button type="button" class="calendar-nav-btn" id="prevMonthBtn" aria-label="Previous Month">&lt;</button>
-                      <span class="month-year" id="currentMonthYear">-MONTH-YEAR-</span>
-                      <button type="button" class="calendar-nav-btn" id="nextMonthBtn" aria-label="Next Month">&gt;</button>
+                      <span class="month-year" id="currentMonthYear">-MONTH-</span>
                   </div>
                   <div class="calendar-grid" id="calendarGrid">
                       <div class="day-header">Mo</div>
@@ -376,7 +370,6 @@
                       <div class="day-header">Fr</div>
                       <div class="day-header">Sa</div>
                       <div class="day-header">Su</div>
-                      <!-- Date circles will be dynamically inserted here by JavaScript -->
                   </div>
                   <div class="calendar-legend">
                       <div class="legend-item">
@@ -393,25 +386,13 @@
               <div class="schedule-box time-slot-box">
                   <h2 id="pl-header-c">Select Time</h2>
                   <div class="pl-scroll-section">
-                      <div class="time-slot-list">
-                            <button type="button" class="time-slot-item" data-category="time">10:00AM</button>
-                            <button type="button" class="time-slot-item" data-category="time">11:00AM</button>
-                            <button type="button" class="time-slot-item" data-category="time">12:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">01:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">02:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">03:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">04:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">05:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">06:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">07:00PM</button>
-                            <button type="button" class="time-slot-item" data-category="time">08:00PM</button>
-                      </div>
+                      <div class="time-slot-list"></div>
                   </div>
                   <button type="submit" class="btn primary confirm-button" id="confirmScheduleBtn" disabled>Confirm Schedule</button>
               </div>
           </div>
       </form>
   </section>
-  <script src="pinklush.js"></script>
+  <script src="scripts/appointments/customerScheduling.js"></script>
 </body>
 </html>

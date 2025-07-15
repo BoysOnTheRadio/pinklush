@@ -22,10 +22,10 @@
             padding: 3rem;
             display: flex;
             flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
             .cinfo {
@@ -106,15 +106,15 @@
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "admin-dashboard.html" class="nav-button">Dashboard</a>
-                <a href = "admin-add-user.html" class="nav-button active">Add User</a>
-                <a href = "admin-modify-profile.html" class="nav-button">Modify Profile</a>
-                <a href = "admin-modify-service.html" class="nav-button">Modify Service</a>
+                <a href = "admin-dashboard.php" class="nav-button">Dashboard</a>
+                <a href = "admin-add-user.php" class="nav-button active">Add User</a>
+                <a href = "admin-modify-profile.php" class="nav-button">Modify Profile</a>
+                <a href = "admin-modify-service.php" class="nav-button">Modify Service</a>
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area cinfo">
                 
-            <form class="customer" action = "landing-page.html" method = "POST">
+            <form class="customer" action = "landing-page.php" method = "POST">
             <h1 id = "pl-admin-header-c">User Information Sheet</h1>
 
             <div class="form-group">

@@ -8,7 +8,7 @@
 </head>
 <body>
   <section class="admin_bg">
-      <form class="pl-admin-section admin-login" action="admin-dashboard.html" method="post">
+      <form class="pl-admin-section admin-login" action="admin-dashboard.php" method="post">
           <h1 id="pl-admin-header-b">LOGIN</h1>
           <div class="form-group">
               <label for="username">Username</label>

@@ -8,16 +8,18 @@
 </head>
     <style>
         .services-group {
-            width: 100%;
+            width: 120%;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             justify-content: center;
             justify-items: center;
+            gap: 50px;
         }
         
             .service-box {
+                gap: 10px;
                 cursor: pointer;
-                width: 225px;
+                width: 300px;
                 margin: 4px;
                 background-color: rgb(255, 255, 255);
                 padding: 25px;
@@ -27,6 +29,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                color: #e96994ff; 
             }
 
                 .service-box:hover {
@@ -145,19 +148,6 @@
     </section>
         
     
-    <script>
-        const submitBtn = document.getElementById('submit-btn');
-        const servicebox = document.querySelectorAll('.service-box');
-        const hidden = document.getElementById('selected');
-
-        servicebox.forEach(box => {
-            box.addEventListener('click', () => {
-                document.querySelector('.selected')?.classList.remove('selected');
-                box.classList.add('selected');
-                hidden.value = box.dataset.id;
-                submitBtn.disabled = false;
-            })
-        })
-    </script>
+    <script src="scripts/appointments/customerServiceSelection.js"></script>
 </body>
 </html>

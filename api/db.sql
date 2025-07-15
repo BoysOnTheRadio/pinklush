@@ -32,6 +32,14 @@ CREATE TABLE service (
     price DECIMAL(10,2)
 );
 
+CREATE TABLE employeeservices (
+    employee_id INT,
+    service_id INT,
+    PRIMARY KEY (employee_id, service_id),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
+    FOREIGN KEY (service_id) REFERENCES Services(service_id)
+)
+
 CREATE TABLE branch_services (
     branch_id INT,
     service_id INT,
@@ -353,3 +361,51 @@ INSERT INTO service (service_type, service_name, description, duration, price) V
 ('Massage', 'Signature Massage w/ Foot Massage', NULL, 120, 900.00),
 ('Massage', 'Aromatherapy Massage w/ Foot Massage', NULL, 90, 950.00);
 
+INSERT INTO branch_services (branch_id, service_id)
+SELECT b.branch_id, s.service_id
+FROM branch b
+JOIN service s ON s.service_type IN ('Hair Color', 'Balayage', 'Brazilian Keratin', 'Rebond', 'Color Highlights', 'Organic Ultra Repair', 'Hair and Scalp Detox',
+'Nails - Mani', 'Nails - Pedi', 'Lashes', 'Haircuts', 'Hair Styling', 'Hair Treatment', 'Waxing', 'Other Services')
+WHERE b.branch_id IN (1, 2);
+
+INSERT INTO branch_services (branch_id, service_id)
+SELECT b.branch_id, s.service_id
+FROM branch b
+JOIN service s ON s.service_type IN ('Facial Treatment', 'Whitening Laser Treatment', 'Diode Laser Hair Removal', 'Slimming Treatment - RF', 'Slimming Treatment - Cavitation', 'Slimming Treatment - Emsculpt', 'Slimming Treatment - Exilift', 'Massage')
+WHERE b.branch_id IN (2);
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type IN ('Hair Color', 'Balayage', 'Brazilian Keratin', 'Rebond', 'Color Highlights', 'Organic Ultra Repair', 'Hair and Scalp Detox', 'Haircuts', 'Hair Styling', 'Hair Treatment')
+WHERE e.name IN ('Kime', 'Jm', 'Charl', 'Smile', 'Jay', 'Camille');
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type IN ('Nails - Mani', 'Nails - Pedi')
+WHERE e.name IN ('Janet', 'Khristine', 'Ashly', 'Marlene', 'Angel', 'Jessa');
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type = 'Lashes'
+WHERE e.name IN ('Ashly', 'Imee');
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type = 'Waxing'
+WHERE e.name IN ('Imee', 'Janet', 'Marlene');
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type IN ('Other Services', 'Facial Treatment', 'Whitening Laser Treatment', 'Diode Laser Hair Removal', 'Slimming Treatment - RF', 'Slimming Treatment - Cavitation', 'Slimming Treatment - Emsculpt', 'Slimming Treatment - Exilift')
+WHERE e.name IN ('Imee', 'Kris');
+
+INSERT INTO employeeservices (employee_id, service_id)
+SELECT e.employee_id, s.service_id
+FROM employee e
+JOIN service s ON s.service_type = 'Massage'
+WHERE e.name IN ('Imee', 'Angel');
