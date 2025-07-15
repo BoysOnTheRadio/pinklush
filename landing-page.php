@@ -30,6 +30,7 @@
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 10px;
+            animation: fade-in 1.25s;
         }
 
         .pl-landing-a {

@@ -10,22 +10,20 @@
         .services-group {
             width: 120%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             justify-content: center;
             justify-items: center;
             gap: 50px;
         }
         
             .service-box {
-                gap: 10px;
                 cursor: pointer;
-                width: 300px;
-                margin: 4px;
                 background-color: rgb(255, 255, 255);
-                padding: 25px;
+                padding: 20px;
                 border-radius: 5px;
                 transition: all ease 0.4s;
                 display: flex;
+                height: 225px;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -37,19 +35,18 @@
                 }
 
                 .service-box:active {
-                    background-color: yellow;
+                    background-color: pink;
                 }
 
                     .image-wrapper {
                     display: flex;
                     outline: 4px white solid;
-                    border-radius: 2.5px;;
-                    width: 95%;
+                    border-radius: 100%;
                     overflow: hidden;
                     position: relative;
                     outline: 3px solid pink;
-                    min-height: 100px;
-                    min-width: 100px;
+                    min-height: 75px;
+                    min-width: 75px;
                     margin: 10px;
                     }
 
@@ -64,6 +61,12 @@
                         transform: rotate(5deg) translate(-350px, -50px);
                         transition: all ease 0.75s;
                     }
+
+            #service-box-header {font-size: 0.8rem;}
+            #service-box-detail {font-size: 0.65rem;}
+            #pl-highlight-a {font-weight: 700;}
+            #pl-highlight-b {font-size: 0.5rem;}
+            #pl-highlight-c {font-style: italic;}
     </style>
 <body>
     <section class = "pinklush_background">
@@ -74,75 +77,24 @@
             </h1>
 
                 <div class="services-group">
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
 
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
-
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
-
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
-
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
-
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-                    <div class="service-box">
-                        <h1>ServiceName</h1>
-                        <p>Duration</p>
-                        <div class = "image-wrapper">
-
-                        </div>
-                        <p>Price</p>
-                        <p>Service Description</p>
-                    </div>
-                    
-
-                    
                 </div>
 
-                <input type = "hidden" name = "service-id" id = "selected" value = "">
+            <input type = "hidden" name = "service-id" id = "selected" value = "">
+
+            <div class="pl-pagination">
+                <span class = "toggle-direction" class = "pagination-icon" onclick = "paginationleft()"><</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                <span class = "toggle-direction" class = "pagination-icon" onclick = "paginationright()">></span>
+            </div>
             
-
-
-
-                <button class = "btn primary" id = "submit-btn" type = "submit" disabled>
-                    Customer Scheduling
-                </button>
-        
+            <button class = "btn primary" id = "submit-btn" type = "submit" disabled>
+                Customer Scheduling
+            </button>
+                    
             </form>
         
     </section>

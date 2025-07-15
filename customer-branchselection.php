@@ -32,6 +32,7 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            margin: 0 15px;
         }
 
             .branch-box:hover {
