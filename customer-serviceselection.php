@@ -62,6 +62,15 @@
                         transition: all ease 0.75s;
                     }
 
+            .pl-pagination {
+                background-color: gray;
+            }
+
+                #pl-pno {
+                    margin: 10px;
+                    cursor: pointer;
+                }
+
             #service-box-header {font-size: 0.8rem;}
             #service-box-detail {font-size: 0.65rem;}
             #pl-highlight-a {font-weight: 700;}
@@ -84,10 +93,10 @@
 
             <div class="pl-pagination">
                 <span class = "toggle-direction" class = "pagination-icon" onclick = "paginationleft()"><</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
+                    <span id = "pl-pno">1</span>
+                    <span id = "pl-pno">1</span>
+                    <span id = "pl-pno">1</span>
+                    <span id = "pl-pno">1</span>
                 <span class = "toggle-direction" class = "pagination-icon" onclick = "paginationright()">></span>
             </div>
             
