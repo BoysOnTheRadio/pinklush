@@ -13,11 +13,11 @@
         }   
 
         .sidebar {
-        width: 250px;         /* or whatever fixed width you prefer */
-        flex-shrink: 0;       /* prevents shrinking */
-        flex-grow: 0;         /* prevents growing */
-        height: 100vh;        /* full height */
-        overflow-y: auto;     /* scroll if sidebar content is long */
+        width: 250px;         
+        flex-shrink: 0;       
+        flex-grow: 0;     
+        height: 100vh; 
+        overflow-y: auto;     
 }
         .checkbox-group {
         display: flex;

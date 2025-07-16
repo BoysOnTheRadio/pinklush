@@ -166,8 +166,11 @@ h1{
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Service Type</th>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Duration</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -180,40 +183,54 @@ h1{
         </main>
     </div>
 </section>
-<script>
-    data.services.forEach((service, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${service.service_name}</td>
-    <td>
-      <button class="btn danger" onclick="deleteService(${service.service_id})">Delete</button>
-    </td>
-  `;
-  serviceTableBody.appendChild(row);
-    });
+ <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const tableBody = document.getElementById("serviceTableBody");
 
-    async function deleteService(serviceId) {
-  if (!confirm('Are you sure you want to delete this service?')) return;
+    try {
+      const res = await fetch("/api/admin/serviceGet.php");
+      const data = await res.json();
 
-  try {
-    const response = await fetch('/api/admin/serviceDelete.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ service_id: serviceId })
-    });
+      if (!data.success) throw new Error(data.message);
 
-    const result = await response.json();
-    alert(result.message);
-    if (result.success) {
-      location.reload(); // Or re-fetch the service list if you're not reloading
+      data.services.forEach((service, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${service.service_type}</td>
+          <td>${service.service_name}</td>
+          <td>${service.description}</td>
+          <td>₱${parseFloat(service.price).toFixed(2)}</td>
+          <td>${service.duration} min</td>
+          <td><button class="btn danger" onclick="deleteService(${service.service_id})">Delete</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } catch (err) {
+      console.error("Failed to load services:", err);
     }
-  } catch (err) {
-    console.error('Failed to delete service:', err);
-    alert('An error occurred while deleting the service.');
-  }
-}
+  });
 
+  async function deleteService(serviceId) {
+    if (!confirm("Are you sure you want to delete this service?")) return;
+
+    try {
+      const res = await fetch(`/api/admin/serviceDelete.php?id=${serviceId}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Service deleted!");
+        location.reload();
+      } else {
+        alert("Delete failed: " + data.message);
+      }
+    } catch (err) {
+      console.error("Error deleting service:", err);
+    }
+  }
 </script>
+
 </body>
 </html>
