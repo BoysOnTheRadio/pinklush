@@ -1,7 +1,6 @@
--- SQL script to create the Pinklush System database and its tables
-
 CREATE TABLE branch (
     branch_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_image VARCHAR(300),
     address VARCHAR(255)
 );
 
@@ -10,7 +9,7 @@ CREATE TABLE employee (
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-    is_admin BOOLEAN NOT NULL DEFAULT 0;
+    is_admin BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE schedule (
@@ -54,14 +53,13 @@ CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     service_id INT,
     employee_id INT,
-    customer_name VARCHAR(100),
+    customer_name VARCHAR(100) NOT NULL,
     customer_phone VARCHAR(15),
-    customer_socialmedia_facebook VARCHAR(50),
-    customer_socialmedia_instagram VARCHAR(50),
     appointment_date DATETIME,
     status VARCHAR(20) DEFAULT 'Scheduled',
-    facebook_username VARCHAR(50) DEFAULT NULL,
-    instagram_username VARCHAR(50) DEFAULT NULL,
+        facebook_username VARCHAR(50) DEFAULT NULL,
+        instagram_username VARCHAR(50) DEFAULT NULL,
+        customer_email VARCHAR(50),
     email VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY (service_id) REFERENCES service(service_id),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)

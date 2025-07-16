@@ -13,6 +13,24 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding:  40px 25px;
+        }
+
+            #modalClose {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 2rem;
+                color: white;
+                cursor: pointer;
+                z-index: 1;
+            }
+
+        .section-divide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -28,6 +46,8 @@
         </section>
 
         <div class="pl-section" id = "pl-modal">
+        <span id = "modalClose" onclick = "closeModal()">&times;</span>
+        <div class="section-divide">
             <h1 class = "pl-header-a">
                 You have successfully booked your appointment!
             </h1>
@@ -37,7 +57,7 @@
                 <br>
                 You May Now Close This Window.
             </p>
-            <button class = "btn primary" onclick = "closeModal()">Mama</button>
+        </div>
         </div>
 
     </section>

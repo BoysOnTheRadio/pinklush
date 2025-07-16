@@ -35,9 +35,9 @@
                     div.classList.add('branch-box');
                     div.dataset.id = branch.branch_id;
                     div.innerHTML = `
-                        <p>Branch ${branch.branch_id}</p>
+                        <p class = "pl-header-b">Branch ${branch.branch_id}</p>
                         <div class="image-wrapper">
-                            <img src="default-branch.jpg" alt="Branch Image" style="width:100px;height:100px;">
+                            <img src="/pinklush/images/${branch.branch_image}">
                         </div>
                         <p>${branch.address}</p>
                     `;

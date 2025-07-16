@@ -79,18 +79,19 @@
             </div>
 
             <div class="form-group">
-                <label for = "customer_socialmedia_facebook" class = "pl-input-label">Facebook Username <span id = "optional">(Optional)</label>
-                    <input type = "text" id = "customer_socialmedia_facebook" placeholder = "John Doe">
-            </div>
-
-            <div class="form-group">
-                <label for = "customer_socialmedia_instagram" class = "pl-input-label">Instagram Username <span id = "optional">(Optional)</span></label>
-                    <input type = "text" id = "customer_socialmedia_instagram" placeholder = "@JohnDoe">
-            </div>
-
-            <div class="form-group">
                 <label for = "customer_email" class = "pl-input-label">Email <span id = "optional">(Optional)</span></label>
-                    <input type = "text" id = "customer_email" placeholder = "@JohnDoe">
+                    <input type = "text" id = "customer_email" placeholder = "pink.lush@email.com">
+            </div>
+
+
+            <div class="form-group">
+                <label for = "facebook_username" class = "pl-input-label">Facebook Username <span id = "optional">(Optional)</label>
+                    <input type = "text" id = "facebook_username" placeholder = "John Doe">
+            </div>
+
+            <div class="form-group">
+                <label for = "instagram_username" class = "pl-input-label">Instagram Username <span id = "optional">(Optional)</span></label>
+                    <input type = "text" id = "instagram_username" placeholder = "@JohnDoe">
             </div>
 
             <button type = "submit" class = "btn primary" id = "submit-btn" disabled>
@@ -99,7 +100,7 @@
        
        
         </form>
-    <script src = "scripts/appointments/customerInformationVerifier.js"></script>
+    <script src = "scripts/Extra/customerInformationVerifier.js"></script>
     <script src = "scripts/appointments/customerInformationSheet.js"></script>
 </body>
 </html>
