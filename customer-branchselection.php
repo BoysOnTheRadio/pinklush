@@ -40,6 +40,18 @@
                 transform: scale(1.05) translateY(-15px);
             }
 
+            .branch-box:active {
+                animation: bounce-click 0.5s ease;
+            }
+
+                .branch-box:after {
+                    background-color: yellow;
+                }
+
+                    .branch-box:hover .branch-box:after {
+                        transform: scale(1.1);
+                    }
+
                 .branch-box:hover .image-wrapper {
                     outline: 6px solid pink;
                 }
@@ -90,7 +102,7 @@
     <section class = "pinklush_background">
         <form class="pl-section" action="customer-serviceselection.php" method="GET">
 
-            <h1 id = "pl-header-a">
+            <h1 class = "pl-header-a">
                 Select which Branch
             </h1>
 

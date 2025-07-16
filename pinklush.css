@@ -78,17 +78,20 @@ html, body {
     margin-bottom: 10px;
   }
 
-#logo {
-  width: 200px;
-  height: 200px;
+#pinklush_logo {
+  width: 150px;
+  height: 150px;
+  background: url(https://scontent.fceb5-1.fna.fbcdn.net/v/t39.30808-6/302433455_507938008002357_816322531853507384_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ha2kvGkT5AgQ7kNvwG_hMsV&_nc_oc=Adm7uWOJbaQ2j-lPYrboKoxSoAEJ1rfc2xRFMXEEBSMaWfYyHKmriMmUeps-8dYbRuk&_nc_zt=23&_nc_ht=scontent.fceb5-1.fna&_nc_gid=PFfTWWTfpjtn7d6MDWcWeQ&oh=00_AfSbSPJDNiUA_qltFklSRZQyVp1mG3eUPurrUT4fgVlULA&oe=687CADE8) no-repeat center center / cover;
   border-radius: 50%;
   margin: 50px;
+  animation: fade-in 1s;
+  transition: 1s ease all;
 }
 
-  #pl-header-a {
+  .pl-header-a {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.5rem,7vw,5rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.1;
     text-transform: uppercase;
     color: #fff;
@@ -96,9 +99,31 @@ html, body {
     animation: fade-in 2.5s;
   }
 
-    #pl-subheader {
+  .pl-header-b {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem,5vw,3rem);
+    font-weight: 475;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .pl-header-c {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.5rem,4vw,2.3rem);
+    font-weight: 450;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .pl-color-black {color: #4f4c4b;}
+
+    .pl-subheader {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(1rem,2.5vw,1.5rem);
+      font-size: clamp(0.5rem,2.5vw,1rem);
       font-weight: 300;
       color: rgba(255,255,255,0.8);
       margin-bottom: 30px;
@@ -126,7 +151,7 @@ html, body {
 }
 
   .btn.primary {
-    margin: 20px;
+    margin: 15px;
     color: #fff;
     background: linear-gradient(135deg,#ff69b4 0%,#ff1493 25%,#e91e63 50%,#d63384 75%,#c2185b 100%);
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
@@ -150,10 +175,23 @@ html, body {
     cursor: not-allowed;
   }
 
-  .selected {
-    outline: 4px solid hotpink;
-    background-color: rgb(255,223,228);
+    .selected {
+      outline: 4px solid hotpink;
+      background-color: rgb(255,223,228);
+    }
+
+    #pl-highlight-a {font-weight: 700;}
+    #pl-highlight-b {font-size: 0.5rem;}
+    #pl-highlight-c {font-style: italic;}
+
+/* Resposiveness  */
+
+@media (min-width: 769px) {
+  #pinklush_logo {
+    width: 200px;
+    height: 200px;
   }
+}
 
 @media (max-width:768px) {
   .pl-section { padding:15px; gap:15px; }
@@ -172,7 +210,14 @@ html, body {
   .btn { padding:0 25px; height:45px; font-size:0.9rem; }
 }
 
-@keyframes fade-in {
-  0% { opacity:0; transform:translateY(70px); }
-  100% { opacity:1; transform:translateY(0); }
-}
+/* Animations  */
+
+  @keyframes fade-in {
+    0% { opacity:0; transform:translateY(70px); }
+    100% { opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes fade-out {
+    0% { opacity: 1;}
+    100% { opacity: 0; transform: scale(0.8); }
+  }

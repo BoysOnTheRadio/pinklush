@@ -55,6 +55,8 @@ CREATE TABLE appointments (
     customer_name VARCHAR(100),
     customer_phone VARCHAR(15),
     customer_address VARCHAR(255),
+        customer_socialmedia_facebook VARCHAR(50),
+        customer_socialmedia_instagram VARCHAR(50),
     appointment_date DATETIME,
     status VARCHAR(20) DEFAULT 'Scheduled',
     FOREIGN KEY (service_id) REFERENCES service(service_id),

@@ -89,6 +89,7 @@
           background: #ff1493;
       }
 
+      .service-provider-box {animation: fade-in 2.2s;}
       .service-provider-list,
       .time-slot-list {
           display: flex;
@@ -139,15 +140,16 @@
       .calendar-box {
           gap: 1.5rem;
           width: 70%;
+          animation: fade-in 1.4s;
       }
 
-      .calendar-header {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          margin-bottom: 0.5rem;
-      }
+        .calendar-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
 
       .calendar-nav-btn {
           background: none;
@@ -287,6 +289,8 @@
           margin-top: 0.5rem;
       }
 
+      .time-slot-box {animation: fade-in 2.2s;}
+
       @media (max-width: 1024px) {
           .scheduling-grid {
               flex-direction: column;
@@ -314,12 +318,6 @@
           .instruction-text {
               font-size: 1rem;
               margin-bottom: 1.5rem;
-          }
-          #pl-header-c {
-              font-size: clamp(0.9rem, 2.5vw, 1.5rem);
-          }
-          #pl-header-b {
-              font-size: clamp(1.5rem, 4vw, 2rem);
           }
           .month-year {
               font-size: 1.2rem;
@@ -350,7 +348,7 @@
       <form class="pl-section scheduling">
           <div class="scheduling-grid">
               <div class="schedule-box service-provider-box">
-                  <h2 id="pl-header-c">Select Service Provider</h2>
+                  <h2 class = "pl-header-c pl-color-black">Select Service Provider</h2>
                   <p class="note-text">Note: If none, please select "None"</p>
                   <div class="pl-scroll-section">
                       <div class="service-provider-list"></div>
@@ -358,7 +356,7 @@
                   <button type="button" class="btn primary none-button" data-category="provider" data-value="none">None</button>
               </div>
               <div class="schedule-box calendar-box">
-                  <h2 id="pl-header-b">Scheduling Calendar</h2>
+                  <h2 class = "pl-header-b pl-color-black">Scheduling Calendar</h2>
                   <div class="calendar-header">
                       <span class="month-year" id="currentMonthYear">-MONTH-</span>
                   </div>
@@ -384,7 +382,7 @@
                   <p class="legend-label">Calendar Legend</p>
               </div>
               <div class="schedule-box time-slot-box">
-                  <h2 id="pl-header-c">Select Time</h2>
+              <h2 class = "pl-header-c pl-color-black">Select Time</h2>
                   <div class="pl-scroll-section">
                       <div class="time-slot-list"></div>
                   </div>
