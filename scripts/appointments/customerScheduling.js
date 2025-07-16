@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function updateConfirmState() {
         confirmBtn.disabled = (selectedProvider === undefined || selectedProvider === null || selectedDate === null);
     }
-
+    
     // Calendar grid logic
         function renderCalendar(startDate, daysToShow, availableDays = []) {
         const monthYearSpan = document.getElementById('currentMonthYear');

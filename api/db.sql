@@ -29,7 +29,8 @@ CREATE TABLE service (
     service_name VARCHAR(100),
     description VARCHAR(255),
     duration INT, -- in minutes
-    price DECIMAL(10,2)
+    price DECIMAL(10,2),
+    max_bookings_per_slot INT DEFAULT 1;
 );
 
 CREATE TABLE employeeservices (
@@ -59,6 +60,9 @@ CREATE TABLE appointments (
         customer_socialmedia_instagram VARCHAR(50),
     appointment_date DATETIME,
     status VARCHAR(20) DEFAULT 'Scheduled',
+    facebook_username VARCHAR(50) DEFAULT NULL,
+    instagram_username VARCHAR(50) DEFAULT NULL,
+    email VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY (service_id) REFERENCES service(service_id),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 );
