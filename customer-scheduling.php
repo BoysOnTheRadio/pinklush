@@ -347,7 +347,7 @@
 </head>
 <body>
   <section class="pinklush_background">
-      <form class="pl-section scheduling">
+      <form class="pl-section scheduling" action = "customer-informationsheet.php" method = "GET">
           <div class="scheduling-grid">
               <div class="schedule-box service-provider-box">
                   <h2 id="pl-header-c">Select Service Provider</h2>
@@ -393,6 +393,7 @@
           </div>
       </form>
   </section>
+  <script src="scripts/appointments/appointmentStorage.js" defer></script>
   <script src="scripts/appointments/customerScheduling.js"></script>
 </body>
 </html>

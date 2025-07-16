@@ -103,7 +103,8 @@
         
             </form>
     </section>
-
+    
+    <script src="scripts/appointments/appointmentStorage.js" defer></script>
     <script src="scripts/appointments/customerBranchSelection.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Information Sheet</title>
     <link rel = "stylesheet" href = "pinklush.css">
+    <script src="scripts/appointments/appointmentStorage.js" defer></script>
     <style>
         .form-group {
             padding: 10px;

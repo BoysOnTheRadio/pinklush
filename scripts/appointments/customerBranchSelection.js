@@ -7,10 +7,11 @@
         const form = document.querySelector('form.pl-section');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const branchId = hidden.value;
-            if (branchId) {
-                window.location.href = `customer-serviceselection.php?branch-id=${branchId}`;
+        e.preventDefault();
+        const branchId = hidden.value;
+        if (branchId) {
+            AppointmentStorage.set('branch_id', branchId); 
+            window.location.href = 'customer-serviceselection.php';
             }
         });
 

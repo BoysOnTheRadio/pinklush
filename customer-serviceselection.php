@@ -108,7 +108,7 @@
         
     </section>
         
-    
+    <script src="scripts/appointments/appointmentStorage.js" defer></script>
     <script src="scripts/appointments/customerServiceSelection.js"></script>
 </body>
 </html>

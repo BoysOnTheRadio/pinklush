@@ -8,10 +8,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     let selectedTimeSlot = null;
     let employees = [];
 
-    // Get branch and service from query params
-    const params = new URLSearchParams(window.location.search);
-    const branchId = params.get('branch-id');
-    const serviceId = params.get('service-id');
+    const branchId = AppointmentStorage.get('branch_id');
+    const serviceId = AppointmentStorage.get('service_id');
+
+    if (!branchId || !serviceId) {
+        window.location.href = 'customer-branchselection.php';
+    }
+
 
     // Function to render time slots for the selected provider and date
     function generateTimeSlots(start, end, interval = 60) {
@@ -130,20 +133,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function renderTimeSlots(slots) {
+    async function renderTimeSlots(slots) {
     const timeSlotList = document.querySelector('.time-slot-list');
     timeSlotList.innerHTML = '';
 
-    if (slots.length === 0) {
-        timeSlotList.innerHTML = "<p>No time slots available.</p>";
-        return;
-    }
+    const provider = employees.find(e => String(e.employee_id) === String(selectedProvider));
+    if (!provider || !selectedDate) return;
+
+    const serviceId = AppointmentStorage.get('service-id');
+
+    // Get booking info from the backend
+    const res = await fetch(`api/appointments/bookedAppointmentsGET.php?provider_id=${selectedProvider}&date=${selectedDate}&service_id=${serviceId}`);
+    const data = await res.json();
+
+    const bookedSlots = data.booked || {};
+    const maxPerSlot = data.max_per_slot || 1;
 
     slots.forEach(slot => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'time-slot-btn';
         btn.textContent = slot;
+
+        const isFullyBooked = (bookedSlots[slot] || 0) >= maxPerSlot;
+        if (isFullyBooked) {
+            btn.disabled = true;
+            btn.classList.add('booked');
+        }
 
         btn.addEventListener('click', () => {
             document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
@@ -156,12 +172,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 }
 
-
-
     // Show next 30 days starting from today
     const today = new Date();
     await loadProviders();
     // When rendering calendar for a provider:
     renderCalendar(today, 30, employees[0].days);
     updateConfirmState();
+
+    document.getElementById('confirmScheduleBtn').addEventListener('click', () => {
+    if (selectedProvider && selectedDate && selectedTimeSlot) {
+        AppointmentStorage.set('employee_id', selectedProvider);
+        AppointmentStorage.set('appointment_date', selectedDate);
+        AppointmentStorage.set('appointment_time', selectedTimeSlot);
+
+        window.location.href = 'customer-informationsheet.php'; 
+    } else {
+        alert('Please select a provider, date, and time.');
+    }
+
+    const allData = AppointmentStorage.getAll();
+    console.log(allData);
+});
+
 });

@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', async () => {
- function getBranchIdFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('branch-id');
+
+        const branchId = AppointmentStorage.get('branch_id');
+        if (!branchId) {
+            window.location.href = 'customer-branchselection.php';
+            return;
         }
-        const branchId = getBranchIdFromUrl();
+
+        const allData = AppointmentStorage.getAll();
+        console.log(allData);
+        
         const servicesGroup = document.querySelector('.services-group');
         const submitBtn = document.getElementById('submit-btn');
         const hidden = document.getElementById('selected');
@@ -48,12 +53,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 submitBtn.disabled = true;
             });
 
-            // Intercept form submit to add branch-id and service-id to URL
             form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const serviceId = hidden.value;
-                if (serviceId && branchId) {
-                    window.location.href = `customer-scheduling.php?branch-id=${branchId}&service-id=${serviceId}`;
-                }
-            });
+            e.preventDefault();
+            const serviceId = hidden.value;
+            if (serviceId && branchId) {
+                AppointmentStorage.set('service_id', serviceId);
+                window.location.href = 'customer-scheduling.php';
+            }
+});
+
 });
