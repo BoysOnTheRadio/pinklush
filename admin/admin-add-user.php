@@ -118,31 +118,18 @@
             <h1 id = "pl-admin-header-c">User Information Sheet</h1>
 
             <div class="form-group">
-                <label for = "customer_name" class = "pl-input-label">Name</label>
-                    <input type = "text" id = "customer_name" placeholder = "John Doe" required>
+                <label for = "employee_name" class = "pl-input-label">Name</label>
+                    <input type = "text" id = "employee_name" placeholder = "John Doe" required>
             </div>
 
             <div class="form-group">
-                <label for = "employee_id" class = "pl-input-label">Employee ID</label>
-                    <input type = "text" id = "employee_id" placeholder = "#123" required>
+                <label for = "email" class = "pl-input-label">Email</label>
+                    <input type = "text" id = "email" placeholder = "pinklush@gmail.com" required>
             </div>
-
-            <div class="form-group">
-                <label for = "user-name" class = "pl-input-label">Username</label>
-                    <input type = "text" id = "user-name" placeholder = "pinklush" required>
-            </div>
-
+                
             <div class="form-group">
                 <label for = "password" class = "pl-input-label">Password</label>
                     <input type = "text" id = "password" placeholder = "@1234" required>
-            </div>
-
-            <div class="form-group">
-                <label for = "permissions" class = "pl-input-label">Permissions</label>
-                <select class = "pl-select-option" id = "permissions" required>
-                    <option id = "base-option">Select Permissions</option>
-                    <option>Customer</option>
-                    <option>Employee</option>
             </div>
             
             <button type = "submit" class = "btn primary" id = "submit-btn" disabled>
@@ -155,6 +142,6 @@
         </main>
     </div>
 </section>
-<script src="pinklush_admin.js"></script>
+<script src="/scripts/admin/addUser.js"></script>
 </body>
 </html>

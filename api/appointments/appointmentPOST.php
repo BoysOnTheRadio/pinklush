@@ -3,16 +3,21 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: POST");
 
-require_once "../db_connect.php"; 
+require_once "../db_connect.php"; // this should define $conn as a MySQLi connection
 
+// Enable error reporting for debugging (remove in production)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Get JSON input
 $input = json_decode(file_get_contents("php://input"));
 
-// checks if required fields are present
+// Check required fields
 if (
     !isset($input->service_id) ||
+    !isset($input->employee_id) ||
     !isset($input->customer_name) ||
     !isset($input->customer_phone) ||
-    !isset($input->customer_address) ||
     !isset($input->appointment_date)
 ) {
     http_response_code(400);
@@ -20,40 +25,58 @@ if (
     exit;
 }
 
-try {
-    // checks if the service_id exists in the services table
-    $check = $pdo->prepare("SELECT COUNT(*) FROM services WHERE serviceID = ?");
-    $check->execute([$input->serviceID]);
-    $exists = $check->fetchColumn();
+// Optional fields (use null if not provided)
+$facebook = $input->customer_socialmedia_facebook ?? null;
+$instagram = $input->customer_socialmedia_instagram ?? null;
+$email = $input->customer_email ?? null;
 
-    if (!$exists) {
-        http_response_code(404);
-        echo json_encode(["success" => false, "message" => "Service ID not found."]);
-        exit;
-    }
+// Check if service exists
+$checkStmt = $conn->prepare("SELECT COUNT(*) FROM service WHERE service_id = ?");
+$checkStmt->bind_param("i", $input->service_id);
+$checkStmt->execute();
+$checkStmt->bind_result($exists);
+$checkStmt->fetch();
+$checkStmt->close();
 
-    // insert the appointment
-    $stmt = $pdo->prepare("INSERT INTO appointment (service_id, customer_name, customer_phone, customer_address, appointment_date) 
-                           VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([
-        $input->service_id,
-        $input->customer_name,
-        $input->customer_phone,
-        $input->customer_address,
-        $input->appointment_date
-    ]);
+if (!$exists) {
+    http_response_code(404);
+    echo json_encode(["success" => false, "message" => "Service ID not found."]);
+    exit;
+}
 
+// Insert appointment
+$stmt = $conn->prepare("
+    INSERT INTO appointments 
+    (employee_id, service_id, customer_name, customer_phone, appointment_date, facebook_username, instagram_username, email) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+");
+
+$stmt->bind_param(
+    "iissssss",
+    $input->employee_id,
+    $input->service_id,
+    $input->customer_name,
+    $input->customer_phone,
+    $input->appointment_date,
+    $facebook,
+    $instagram,
+    $email
+);
+
+if ($stmt->execute()) {
     echo json_encode([
         "success" => true,
-        "appointmentID" => $pdo->lastInsertId(),
+        "appointmentID" => $stmt->insert_id,
         "message" => "Appointment created successfully."
     ]);
-
-} catch (PDOException $e) {
+} else {
     http_response_code(500);
     echo json_encode([
         "success" => false,
-        "message" => "Server error: " . $e->getMessage()
+        "message" => "Database error: " . $stmt->error
     ]);
 }
+
+$stmt->close();
+$conn->close();
 ?>

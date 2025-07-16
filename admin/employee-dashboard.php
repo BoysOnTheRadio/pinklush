@@ -6,31 +6,6 @@
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="pinklush_admin.css">
 <style>
-
-  html, body {
-  height: 100%;
-  margin: 0;
-  overflow-y: hidden; 
-}
-
-.dashboard-container {
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
-  max-width: 80%;
-}
-
-.dashboard-main {
-  overflow-y: hidden; 
-}
-
-.content-area {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-
   .bookings-header {
   font-family: "Playfair Display", serif;
   font-size: clamp(2rem, 4vw, 3rem);
@@ -64,24 +39,18 @@
 }
 
 .bookings-table-container {
-  max-height: 70vh;
-  overflow-y: auto;
-  border-radius: 10px;
-  background-color: white;
+  overflow-x: auto;
   width: 100%;
   border-radius: 10px;
   border: 1px solid rgba(255, 105, 180, 0.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   background-color: rgb(255, 240, 245);
-  max-height: 700px;
-  
 }
 
 .bookings-table {
   width: 100%;
   border-collapse: collapse;
   min-width: 800px;
-  overflow-y: auto; 
 }
 
 .bookings-table th,
@@ -92,7 +61,6 @@
   font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   color: #333;
-   overflow-y: auto; 
 }
 
 .bookings-table th {
@@ -141,14 +109,11 @@
     <div class="dashboard-container">
         <header class="dashboard-header">
             <div class="site-name">Pink Lush Beauty Lounge</div>
-            <div class="user-name">Admin</div>
+            <div class="user-name">Employee</div>
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
                 <a href = "" class="nav-button active">Dashboard</a>
-                <a href = "admin-add-user.php" class="nav-button">Add User</a>
-                <a href = "admin-modify-profile.php" class="nav-button">Modify Profile</a>
-                <a href = "admin-modify-service.php" class="nav-button">Modify Service</a>
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area">
@@ -163,13 +128,11 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Service</th>
-                                <th>Stylist</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Number</th>
                                 <th>Facebook User</th>
                                 <th>Instagram User</th>
-                                <th>Branch</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -193,13 +156,13 @@
 </section>
 <script src="/scripts/admin/adminDashboard.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || !user.is_admin) {
-        alert("Access denied. Admins only.");
-        window.location.href = 'admin.php'; 
+
+    if (!user) {
+        alert("You must log in first.");
+        window.location.href = "index.html"; // or login page
+        return;
     }
-});
 </script>
 </body>
 </html>

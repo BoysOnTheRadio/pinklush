@@ -8,11 +8,11 @@
 </head>
 <body>
   <section class="admin_bg">
-      <form class="pl-admin-section admin-login" action="admin-dashboard.php" method="post">
+      <form class="pl-admin-section admin-login" method="post">
           <h1 id="pl-admin-header-b">LOGIN</h1>
           <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" name="username" placeholder="Enter your username" required>
+              <label for="username">Email</label>
+              <input type="text" id="email" name="username" placeholder="Enter your email" required>
           </div>
           <div class="form-group">
               <label for="password">Password</label>
@@ -22,5 +22,6 @@
       </form>
   </section>
 
+  <script src="/scripts/admin/loginAuth.js"></script>
 </body>
 </html>

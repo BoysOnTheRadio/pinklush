@@ -1,53 +1,68 @@
-// admindashboard.js
+document.addEventListener('DOMContentLoaded', () => {
+  // Check admin access
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || !user.is_admin) {
+    alert("Access denied. Admins only.");
+    window.location.href = 'admin.php';
+    return;
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadAppointments();
-});
+  const tableBody = document.querySelector('.bookings-table tbody');
+  const searchInput = document.querySelector('.search-bar');
 
-async function loadAppointments() {
-    try {
-        const response = await fetch("api/admin/appointmentGet.php");
-        const data = await response.json();
+  // Fetch and display appointments
+  fetchAppointments();
 
-        if (data.success && Array.isArray(data.appointments)) {
-            const tbody = document.querySelector(".bookings-table tbody");
-            tbody.innerHTML = ""; // Clear old data
-
-            data.appointments.forEach((appt, index) => {
-                const row = document.createElement("tr");
-
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${appt.customer_name}</td>
-                    <td>${appt.service_name || 'N/A'}</td>
-                    <td>${formatDate(appt.appointment_date)}</td>
-                    <td>${formatTime(appt.appointment_date)}</td>
-                    <td>${appt.customer_phone}</td>
-                    <td>${appt.facebook_user || 'N/A'}</td>
-                    <td>${appt.instagram_user || 'N/A'}</td>
-                    <td>${appt.email || 'N/A'}</td>
-                    <td>Pending</td>
-                `;
-
-                tbody.appendChild(row);
-            });
+  function fetchAppointments() {
+    fetch('/api/admin/appointmentGET.php') 
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          renderAppointments(data.appointments);
         } else {
-            alert("No appointments found.");
+          tableBody.innerHTML = `<tr><td colspan="9">No data found.</td></tr>`;
         }
-    } catch (error) {
-        console.error("Failed to load appointments:", error);
-        alert("Error fetching appointments.");
-    }
-}
+      })
+      .catch(err => {
+        console.error('Error fetching appointments:', err);
+        tableBody.innerHTML = `<tr><td colspan="9">Error loading data.</td></tr>`;
+      });
+  }
 
-// Format date (e.g., 2025-07-16 -> July 16, 2025)
-function formatDate(dateString) {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-}
+  function renderAppointments(appointments) {
+    tableBody.innerHTML = ''; 
 
-// Format time (e.g., 2025-07-16T10:30:00 -> 10:30 AM)
-function formatTime(dateString) {
-    const options = { hour: "2-digit", minute: "2-digit" };
-    return new Date(dateString).toLocaleTimeString(undefined, options);
-}
+    appointments.forEach((appt, index) => {
+    const dateTime = new Date(appt.appointment_date);
+    const date = dateTime.toLocaleDateString();
+    const time = dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${appt.customer_name || '—'}</td>
+        <td>${appt.service_type || '—'}</td>
+        <td>${appt.name || '—'}</td>
+        <td>${date}</td>
+        <td>${time}</td>
+        <td>${appt.customer_phone || '—'}</td>
+        <td>${appt.facebook_username || '—'}</td>
+        <td>${appt.instagram_username || '—'}</td>
+        <td>${appt.address || '—'}</td>
+        <td>${appt.status || '—'}</td>
+    `;
+    tableBody.appendChild(row);
+    });
+  }
+
+  // Live Search Functionality
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('.bookings-table tbody tr');
+
+    rows.forEach(row => {
+      const rowText = row.textContent.toLowerCase();
+      row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+    });
+  });
+});

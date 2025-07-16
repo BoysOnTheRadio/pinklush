@@ -2,22 +2,27 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-require_once "../db_connect.php";
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/../db_connect.php';
 
 // build base query
 $query = "SELECT 
     a.appointment_id,
     a.customer_name,
-    a.customer_phone,
-    a.customer_address,
+    s.service_type,
+    e.name,
     a.appointment_date,
-    s.service_name,
-    e.name AS stylist,
-    b.address AS branch
+    a.customer_phone,
+    a.facebook_username,
+    a.instagram_username,
+    b.address,
+    a.status
 FROM appointments a
 LEFT JOIN service s ON a.service_id = s.service_id
-LEFT JOIN schedule sch ON s.shift_id = sch.shift_id
-LEFT JOIN employee e ON sch.employee_id = e.employee_id
+LEFT JOIN employee e ON a.employee_id = e.employee_id
+LEFT JOIN schedule sch ON e.employee_id = sch.employee_id  
 LEFT JOIN branch b ON sch.branch_id = b.branch_id
 WHERE 1=1";
 
@@ -37,7 +42,15 @@ if (isset($_GET['branch_id'])) {
     $params[] = $_GET['branch_id'];
 }
 
-$stmt = mysqli_prepare($con, $query);
+$stmt = mysqli_prepare($conn, $query);
+if (!$stmt) {
+    echo json_encode([
+        "success" => false,
+        "message" => "SQL Prepare failed: " . mysqli_error($conn),
+        "query" => $query
+    ]);
+    exit;
+}
 
 // bind parameters dynamically
 if (!empty($params)) {

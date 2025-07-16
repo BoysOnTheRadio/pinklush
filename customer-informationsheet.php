@@ -65,7 +65,7 @@
     <section class = "pinklush_background">
 
 
-        <form class="pl-section cinfo" action = "customer-scheduled.php" method = "POST">
+        <form class="pl-section cinfo" id ="cinfo" action = "customer-scheduled.php" method = "POST">
             <h1 class = "pl-header-c pl-color-black">Customer Information Sheet</h1>
 
             <div class="form-group">
@@ -87,7 +87,12 @@
                 <label for = "customer_socialmedia_instagram" class = "pl-input-label">Instagram Username <span id = "optional">(Optional)</span></label>
                     <input type = "text" id = "customer_socialmedia_instagram" placeholder = "@JohnDoe">
             </div>
-            
+
+            <div class="form-group">
+                <label for = "customer_email" class = "pl-input-label">Email <span id = "optional">(Optional)</span></label>
+                    <input type = "text" id = "customer_email" placeholder = "@JohnDoe">
+            </div>
+
             <button type = "submit" class = "btn primary" id = "submit-btn" disabled>
                 Submit booking
             </button>
@@ -95,5 +100,6 @@
        
         </form>
     <script src = "scripts/appointments/customerInformationVerifier.js"></script>
+    <script src = "scripts/appointments/customerInformationSheet.js"></script>
 </body>
 </html>
