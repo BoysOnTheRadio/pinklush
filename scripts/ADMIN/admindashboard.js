@@ -35,7 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     appointments.forEach((appt, index) => {
     const dateTime = new Date(appt.appointment_date);
     const date = dateTime.toLocaleDateString();
-    const time = dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const time = dateTime.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+    }).replace(/ AM| PM/, '');
+
+    console.log(dateTime.toString());
+
 
     const row = document.createElement('tr');
     row.innerHTML = `

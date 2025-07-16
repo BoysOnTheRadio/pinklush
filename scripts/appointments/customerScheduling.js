@@ -26,7 +26,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const endDate = new Date(0, 0, 0, endHour, endMin);
 
     while (startDate < endDate) {
-        const timeString = startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const timeString = startDate.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+        });
+
+        console.log('Time slot:', timeString);
+
         slots.push(timeString);
         startDate.setMinutes(startDate.getMinutes() + interval);
     }
@@ -172,18 +179,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 }
 
-    // Show next 30 days starting from today
+
+
     const today = new Date();
     await loadProviders();
     // When rendering calendar for a provider:
     renderCalendar(today, 30, employees[0].days);
     updateConfirmState();
 
+    function combineDateAndTime(date, timeString) {
+    const [time, modifier] = timeString.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+
+    if (modifier === 'PM' && hours !== 12) hours += 12;
+    if (modifier === 'AM' && hours === 12) hours = 0;
+
+    const combined = new Date(date);
+    combined.setHours(hours, minutes, 0, 0);
+
+    // Format as 'YYYY-MM-DD HH:mm:ss'
+    const yyyy = combined.getFullYear();
+    const mm = String(combined.getMonth() + 1).padStart(2, '0');
+    const dd = String(combined.getDate()).padStart(2, '0');
+    const hh = String(combined.getHours()).padStart(2, '0');
+    const min = String(combined.getMinutes()).padStart(2, '0');
+    const ss = '00';
+
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+}
+
+
     document.getElementById('confirmScheduleBtn').addEventListener('click', () => {
     if (selectedProvider && selectedDate && selectedTimeSlot) {
         AppointmentStorage.set('employee_id', selectedProvider);
-        AppointmentStorage.set('appointment_date', selectedDate);
-        AppointmentStorage.set('appointment_time', selectedTimeSlot);
+        const appointmentDateTime = combineDateAndTime(selectedDate, selectedTimeSlot);
+        AppointmentStorage.set('appointment_date', appointmentDateTime);
+
 
         window.location.href = 'customer-informationsheet.php'; 
     } else {

@@ -9,21 +9,20 @@ require_once __DIR__ . '/../db_connect.php';
 
 // build base query
 $query = "SELECT 
-    a.appointment_id,
-    a.customer_name,
-    s.service_type,
-    e.name,
-    a.appointment_date,
-    a.customer_phone,
-    a.facebook_username,
-    a.instagram_username,
-    b.address,
-    a.status
+  a.appointment_id,
+  a.customer_name,
+  s.service_type,
+  e.name,
+  a.appointment_date,
+  a.customer_phone,
+  a.facebook_username,
+  a.instagram_username,
+  b.address,
+  a.status
 FROM appointments a
 LEFT JOIN service s ON a.service_id = s.service_id
 LEFT JOIN employee e ON a.employee_id = e.employee_id
-LEFT JOIN schedule sch ON e.employee_id = sch.employee_id  
-LEFT JOIN branch b ON sch.branch_id = b.branch_id
+LEFT JOIN branch b ON e.branch_id = b.branch_id
 WHERE 1=1";
 
 $params = [];

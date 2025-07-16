@@ -6,10 +6,11 @@ CREATE TABLE branch (
 
 CREATE TABLE employee (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    branch_id INT,
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-    is_admin BOOLEAN NOT NULL DEFAULT 0
+    is_admin BOOLEAN NOT NULL DEFAULT 0;
 );
 
 CREATE TABLE schedule (

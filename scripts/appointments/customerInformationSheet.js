@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const branchId = AppointmentStorage.get('branch_id');
     const serviceId = AppointmentStorage.get('service_id');
     const employeeId = AppointmentStorage.get('employee_id');
-    const appointmentDate = AppointmentStorage.get('appointment_date');
-    const appointmentTime = AppointmentStorage.get('appointment_time');
+    const appointmentDateTime = AppointmentStorage.get('appointment_date');
+    console.log('Confirmed DateTime:', appointmentDateTime);
 
-    if (!branchId || !serviceId || !employeeId || !appointmentDate || !appointmentTime) {
+    if (!branchId || !serviceId || !employeeId || !appointmentDateTime) {
         alert("Missing appointment data. Please start again.");
         window.location.href = 'customer-branchselection.php';
         return;
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const appointmentDatetime = `${appointmentDate} ${appointmentTime}`;
 
             try {
                 const res = await fetch('api/appointments/appointmentPOST.php', {
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({
                         employee_id: employeeId,
                         service_id: serviceId,
-                        appointment_date: appointmentDatetime,
+                        appointment_date: appointmentDateTime,
                         customer_name: name,
                         customer_phone: phone,
                         facebook_username: facebook,
@@ -47,21 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 
-            // ✅ Get the raw text response
             const raw = await res.text();
-            console.log('🚨 Raw server response:', raw);
+            console.log('Raw server response:', raw);
 
-            // ✅ Try to parse the raw text into JSON
             let result;
             try {
                 result = JSON.parse(raw);
             } catch (jsonError) {
-                console.error("❌ Failed to parse JSON:", jsonError);
+                console.error("Failed to parse JSON:", jsonError);
                 alert("Server returned an invalid response.");
                 return;
             }
 
-            // ✅ Handle the parsed result
             if (result.success) {
                 AppointmentStorage.clear();
                 window.location.href = 'customer-scheduled.php';
