@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const hidden = document.getElementById('selected');
         const form = document.querySelector('form.pl-section');
 
-        // Fetch and render services for the selected branch
         fetch(`api/servicesGET.php?branch_id=${branchId}`)  
             .then(response => response.json())
             .then(data => {
@@ -24,11 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     box.classList.add('service-box');
                     box.dataset.id = service.service_id;
                     box.innerHTML = `
-                        <h1>${service.service_name}</h1>
-                        <p>Duration: ${service.duration ? service.duration + " min" : "N/A"}</p>
+                        <h1 id = "service-box-header">${service.service_name}</h1>
+                        <p id = "service-box-detail"><span id = "pl-highlight-a">Duration:</span> <span id = "pl-highlight-b">${service.duration ? service.duration + " min" : "N/A"}</span></p>
                         <div class="image-wrapper"></div>
-                        <p>Price: ₱${service.price}</p>
-                        <p>${service.description ? service.description : ""}</p>
+                        <p id = "service-box-detail"><span id = "pl-highlight-a">Price:</span> <span id = "pl-highlight-b">₱${service.price}</span></p>
+                        <p id = "service-box-detail"><span id = "pl-highlight-c">${service.description ? service.description : ""}</span></p>
                     `;
                     servicesGroup.appendChild(box);
                 });

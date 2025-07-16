@@ -23,7 +23,6 @@
         });
         });
 
-    // Fetch BETA
     const container = document.querySelector('.branch-items');
     fetch('api/branchGET.php')
         .then(response => response.json())
@@ -44,7 +43,6 @@
                     container.appendChild(div);
                 });
 
-                // Add click event listeners
                 const branchbox = document.querySelectorAll('.branch-box');
                 const submitBtn = document.getElementById('submit-btn');
                 const hidden = document.getElementById('selected');
