@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/../db_connect.php';
 header("Content-Type: application/json");
 
-$query = "SELECT employee_id, name, email, is_admin FROM employee";
+$query = "SELECT employee_id, name, email, is_admin, branch_id FROM employee";
 $result = mysqli_query($conn, $query);
 
 $employees = [];

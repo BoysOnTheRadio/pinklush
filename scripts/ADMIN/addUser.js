@@ -1,16 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.customer');
   const submitBtn = document.getElementById('submit-btn');
+  const branchSelect = document.getElementById('branch_id');
 
-    const inputs = form.querySelectorAll('input');
+  // Load branches into the dropdown
+  async function loadBranches() {
+    try {
+      const res = await fetch('/api/branchGET.php');
+      const data = await res.json();
 
-    inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        const allFilled = Array.from(inputs).every(i => i.value.trim() !== '');
-        submitBtn.disabled = !allFilled;
-      });
-    });
+      if (data.success && data.branches) {
+        data.branches.forEach(branch => {
+          const option = document.createElement('option');
+          option.value = branch.branch_id;
+          option.textContent = branch.address;
+          branchSelect.appendChild(option);
+        });
+      } else {
+        alert('Failed to load branches.');
+      }
+    } catch (err) {
+      console.error('Error loading branches:', err);
+      alert('Could not load branches.');
+    }
+  }
 
+  loadBranches();
+
+  // Form submission logic
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -18,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       name: document.getElementById('employee_name').value.trim(),
       email: document.getElementById('email').value.trim(),
       password: document.getElementById('password').value.trim(),
+      branch_id: document.getElementById('branch_id').value.trim()
     };
 
     try {
@@ -29,15 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(data)
       });
 
-
       const result = await response.json();
 
       if (result.success) {
-        alert(`success ${result.message}`);
+        alert(`Success: ${result.message}`);
         form.reset();
-        submitBtn.disabled = true;
       } else {
-        alert(`failure ${result.message}`);
+        alert(`Failed: ${result.message}`);
       }
     } catch (error) {
       console.error('Add user error:', error);
@@ -45,4 +61,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-

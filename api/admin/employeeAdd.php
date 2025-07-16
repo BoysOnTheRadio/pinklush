@@ -24,7 +24,7 @@ if (!$name || !$email || !$password) {
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$query = "INSERT INTO employee (name, email, password) VALUES (?,?,?)";
+$query = "INSERT INTO employee (name, email, password, branch_id) VALUES (?,?,?,?)";
 $stmt = mysqli_prepare ($conn, $query);
 mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashed_password);
 

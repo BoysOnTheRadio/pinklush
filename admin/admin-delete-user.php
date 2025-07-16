@@ -12,7 +12,6 @@
   margin: 0;
   overflow-y: hidden; 
 }
-
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -159,7 +158,7 @@ h1{
             </nav>
             <div class="content-area">
                 <form class="customer" action="admin-delete-user" method="POST">
-  <h1 id="pl-admin-header-c">Delete User</h1>
+                <h1 id="pl-admin-header-c">Delete User</h1>
 
   
             <div class="bookings-table-container">

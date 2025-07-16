@@ -116,7 +116,7 @@
             </nav>
             <div class="content-area cinfo">
                 
-            <form class="customer" action = "landing-page.php" method = "POST">
+            <form class="customer" action = "admin-add-user.php" method = "POST">
             <h1 id = "pl-admin-header-c">User Information Sheet</h1>
 
             <div class="form-group">
@@ -132,6 +132,14 @@
             <div class="form-group">
                 <label for = "password" class = "pl-input-label">Password</label>
                     <input type = "text" id = "password" placeholder = "@1234" required>
+            </div>
+
+            <div class="form-group">
+            <label for="branch_id" class="pl-input-label">Branch</label>
+            <select id="branch_id" class="pl-select-option" required>
+                <option value="">Select Branch</option>
+                
+            </select>
             </div>
             
             <button type = "submit" class = "btn primary" id = "submit-btn" disabled>
