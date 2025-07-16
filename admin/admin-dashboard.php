@@ -157,6 +157,6 @@
         </main>
     </div>
 </section>
-<script src="pinklush_admin.js"></script>
+<script src="admindashboard.js"></script>
 </body>
 </html>
