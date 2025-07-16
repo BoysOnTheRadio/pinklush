@@ -7,13 +7,15 @@
     <link rel = "stylesheet" href = "pinklush.css">
     <style>
         #pl-modal {
-            background-color: rgb(0, 0, 0, 0.95);
+            background-color: rgb(0, 0, 0, 0.85);
+            backdrop-filter: blur(7.5px);
             position: absolute;
-            animation: fade-in 1.5s; 
+            animation: fade-in 1s; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding:  40px 25px;
+            box-shadow: 0 0 10px white;
         }
 
             #modalClose {
@@ -37,7 +39,7 @@
 <body>
     <section class = "pinklush_background">
 
-        <section class="pl-section">
+        <section class="pl-section scheduled">
             <div id = "pinklush_logo"></div>
             <h1 class = "pl-header-a pl-color-black">
                 Thank you for booking with us!
@@ -62,14 +64,6 @@
 
     </section>
 
-    <script>
-        const modalBox = document.getElementById('pl-modal');
-        const closeModal = () => {
-            modalBox.style.animation = 'fade-out 1s';
-            modalBox.addEventListener('animationend', () => {
-            modalBox.style.display = 'none';
-            }, {once: true});
-        }
-    </script>
+    <script src = "scripts/Extra/modalBox.js"></script>
 </body>
 </html>

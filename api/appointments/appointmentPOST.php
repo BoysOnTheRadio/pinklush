@@ -47,7 +47,7 @@ if (!$exists) {
 // Insert appointment
 $stmt = $conn->prepare("
     INSERT INTO appointments 
-    (employee_id, service_id, customer_name, customer_phone, appointment_date, facebook_username, instagram_username, email) 
+    (employee_id, service_id, customer_name, customer_phone, appointment_date, facebook_username, instagram_username, customer_email) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ");
 
