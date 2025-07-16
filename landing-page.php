@@ -30,7 +30,7 @@
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 10px;
-            animation: fade-in 1.25s;
+            animation: fade-in 0.5s ease forwards;
         }
 
         .pl-landing-a {
@@ -88,11 +88,11 @@
                 <h2 class="top-text">PinkLush Beauty Lounge</h2>
             </div>
 
-            <h1 class="pl-header" id="pl-header-a">
+            <h1 class = "pl-header pl-header-a">
                 Letting Your <br /> True Beauty Shine
             </h1>
 
-            <p id="pl-subheader">
+            <p class = "pl-subheader">
                  Your go-to beauty lounge is located at the heart of the city & opens daily for your pampering needs!
             </p>
                 <a href = "customer-branchselection.php" class = "btn primary">
@@ -102,5 +102,6 @@
             </div>
         </div>
     </section>
+
 </body>
 </html>

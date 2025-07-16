@@ -17,8 +17,10 @@
         }
 
         .cinfo {
-            width: 60%;
-            padding: 50px 0;
+            width: 650px;
+            padding: 50px 25px;
+            margin: 25px;
+            background-color: rgb(245, 235, 237);
         }
             .form-group input {
                 border: none;
@@ -46,7 +48,7 @@
                 }
         
         .pl-input-label {
-            color: gray;
+            color: #4f4c4b;
             font-size: 1.3rem;
             text-align: left;
             font-family: 'Playfair Display', serif;
@@ -63,8 +65,8 @@
     <section class = "pinklush_background">
 
 
-        <form class="pl-section cinfo" action = "landing-page.php" method = "POST">
-            <h1 id = "pl-header-b">Customer Information Sheet</h1>
+        <form class="pl-section cinfo" action = "customer-scheduled.php" method = "POST">
+            <h1 class = "pl-header-c pl-color-black">Customer Information Sheet</h1>
 
             <div class="form-group">
                 <label for = "customer_name" class = "pl-input-label">Name</label>
@@ -77,13 +79,13 @@
             </div>
 
             <div class="form-group">
-                <label for = "xxx" class = "pl-input-label">Facebook Username <span id = "optional">(Optional)</label>
-                    <input type = "text" id = "xxx" placeholder = "John Doe">
+                <label for = "customer_socialmedia_facebook" class = "pl-input-label">Facebook Username <span id = "optional">(Optional)</label>
+                    <input type = "text" id = "customer_socialmedia_facebook" placeholder = "John Doe">
             </div>
 
             <div class="form-group">
-                <label for = "xxx" class = "pl-input-label">Instagram Username <span id = "optional">(Optional)</span></label>
-                    <input type = "text" id = "xxx" placeholder = "@JohnDoe">
+                <label for = "customer_socialmedia_instagram" class = "pl-input-label">Instagram Username <span id = "optional">(Optional)</span></label>
+                    <input type = "text" id = "customer_socialmedia_instagram" placeholder = "@JohnDoe">
             </div>
             
             <button type = "submit" class = "btn primary" id = "submit-btn" disabled>
@@ -92,18 +94,6 @@
        
        
         </form>
-   <script>
-        const cname = document.getElementById('customer_name');
-        const cphone = document.getElementById('customer_phone');
-        const submit = document.getElementById('submit-btn');
-
-        function checkinput() {
-            if(cname.value.trim() !== "" && cphone.value.trim() !== "") submit.disabled = false;
-            else submit.disabled = true;
-        }
-
-        cname.addEventListener('input', checkinput);
-        cphone.addEventListener('input', checkinput);
-   </script>
+    <script src = "scripts/appointments/customerInformationVerifier.js"></script>
 </body>
 </html>
