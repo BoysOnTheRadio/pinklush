@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Calendar grid logic
-    function renderCalendar(startDate, daysToShow, availableDays = []) {
+        function renderCalendar(startDate, daysToShow, availableDays = []) {
         const monthYearSpan = document.getElementById('currentMonthYear');
         const options = { month: 'long'};
         monthYearSpan.textContent = startDate.toLocaleDateString('en-US', options);
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             btn.className = 'date-circle' + (isAvailable ? ' available' : ' booked');
             btn.textContent = currentDate.getDate();
             btn.disabled = !isAvailable;
-            btn.title = currentDate.toLocaleDateString(); // Optional: show full date on hover
+            btn.title = currentDate.toLocaleDateString();
             btn.addEventListener('click', () => {
                 if (!isAvailable) return;
                 document.querySelectorAll('.date-circle.selected').forEach(b => b.classList.remove('selected'));
@@ -111,10 +111,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 selectedDate = currentDate.toISOString().slice(0,10);
                 selectedTimeSlot = null; 
                 updateConfirmState();
+                
+                console.log("employees =", employees);
+                console.log("selectedProvider =", selectedProvider);
 
-                const provider = employees.find(e => e.employee_id === selectedProvider);
-                const timeSlots = generateTimeSlots(provider.shift_start, provider.shift_end);
-                renderTimeSlots(timeSlots);
+                const provider = employees.find(e => e.employee_id == selectedProvider);
+                if (provider && provider.shift_start && provider.shift_end) {
+                    const timeSlots = generateTimeSlots(provider.shift_start, provider.shift_end);
+                    renderTimeSlots(timeSlots);
+                } else {
+                    console.warn("Provider or shift data missing", provider);
+                }
             });
             calendarGrid.appendChild(btn);
 

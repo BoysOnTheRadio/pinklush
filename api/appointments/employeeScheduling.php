@@ -13,7 +13,7 @@ if ($branch_id === 0 || $service_id === 0) {
     exit;
 }
 
-// Get all employees in the branch who can do the given service, including their available days
+// Get all employees in the branch who can do the given service, including their schedule
 $sql = "
 SELECT e.employee_id, e.name, sch.day, sch.shift_start, sch.shift_end
 FROM employee e
@@ -32,17 +32,24 @@ $result = $stmt->get_result();
 $employees = [];
 while ($row = $result->fetch_assoc()) {
     $id = $row['employee_id'];
+
     if (!isset($employees[$id])) {
         $employees[$id] = [
-            'employee_id' => $row['employee_id'],
+            'employee_id' => $id,
             'name' => $row['name'],
-            'days' => []
+            'days' => [],
+            'shift_start' => $row['shift_start'],
+            'shift_end' => $row['shift_end']
         ];
     }
-    $employees[$id]['days'][] = $row['day'];
+
+    // Only add unique days (prevent duplicate weekdays)
+    if (!in_array($row['day'], $employees[$id]['days'])) {
+        $employees[$id]['days'][] = $row['day'];
+    }
 }
 
-// Re-index array for JSON
+// Output as JSON
 echo json_encode(["employees" => array_values($employees)]);
 
 $stmt->close();
