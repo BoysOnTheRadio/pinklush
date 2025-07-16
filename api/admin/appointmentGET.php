@@ -12,7 +12,7 @@ $query = "SELECT
   a.appointment_id,
   a.customer_name,
   s.service_type,
-  e.name AS stylist,
+  e.name,
   a.appointment_date,
   a.customer_phone,
   a.facebook_username,

@@ -1,28 +1,17 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/../db_connect.php';
 header("Content-Type: application/json");
 
-require_once "../db_connect.php";
+$query = "SELECT employee_id, name, email, is_admin FROM employee";
+$result = mysqli_query($conn, $query);
 
-$query = "SELECT * FROM employee";
-$result = mysqli_query($con, $query);
-$employee = [];
-
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)){
-        $employee[] = $row; 
-    }
-    echo json_encode(
-        [
-            "success" => true,
-            "data" => $employee
-        ]
-        );
-} else
-{
-    echo json_encode([
-        "success" => false,
-        "message" => "failed to fetch employee"
-    ]);
+$employees = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $employees[] = $row;
 }
-?>
+
+echo json_encode(["success" => true, "employees" => $employees]);

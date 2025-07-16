@@ -11,7 +11,7 @@ if ($employee_id === 0 || $service_id === 0 || empty($date)) {
     exit;
 }
 
-// 1. Get the service type and max bookings per slot
+//Get the service type and max bookings per slot
 $serviceSql = "SELECT service_type, max_bookings_per_slot FROM service WHERE service_id = ?";
 $serviceStmt = $conn->prepare($serviceSql);
 $serviceStmt->bind_param("i", $service_id);
@@ -27,7 +27,7 @@ if (!$serviceData) {
 $serviceType = $serviceData['service_type'];
 $maxBookings = intval($serviceData['max_bookings_per_slot']);
 
-// 2. Get counts of current bookings
+// Get counts of current bookings
 $sql = "
     SELECT 
         TIME(appointment_date) AS time_slot,
@@ -51,7 +51,7 @@ while ($row = $result->fetch_assoc()) {
     $booked[$time] = intval($row['count']);
 }
 
-// 3. Return bookings + max allowed
+// Return bookings + max allowed
 echo json_encode([
     "booked" => $booked,
     "max_per_slot" => $maxBookings,

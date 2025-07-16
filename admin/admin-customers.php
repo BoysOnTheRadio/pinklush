@@ -137,15 +137,16 @@
     <div class="dashboard-container">
         <header class="dashboard-header">
             <div class="site-name">Site Name</div>
-            <div class="user-name">Name</div>
+            <div class="user-name">Admin</div>
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "" class="nav-button">Dashboard</a>
+                <a href = "admin-dashboard.php" class="nav-button">Dashboard</a>
                 <a href = "admin-add-user.php" class="nav-button">Add User</a>
-                <a href = "admin-status.php" class="nav-button active">Status</a>
-                <a href = "admin-modify-profile.php" class="nav-button">Modify Profile</a>
-                <a href = "admin-modify-service.php" class="nav-button">Modify Service</a>
+                <a href = "admin-delete-user.php" class="nav-button">Delete User</a>
+                <a href = "admin-add-service.php" class="nav-button">Add Service</a>
+                <a href = "admin-delete-service.php" class="nav-button">Delete Service</a>
+                <a href = "admin-customers.php" class="nav-button active">Customers</a>
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area">

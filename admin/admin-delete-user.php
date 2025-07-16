@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Admin Profile</title>
 <link rel="stylesheet" href="pinklush_admin.css">
 <style>
-
+  
   html, body {
   height: 100%;
   margin: 0;
@@ -106,6 +106,10 @@
   z-index: 1;
 }
 
+h1{
+  margin-bottom: 30px;
+}
+
 .bookings-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -145,63 +149,85 @@
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "admin-dashboard.php" class="nav-button active">Dashboard</a>
+                <a href = "admin-dashboard.php" class="nav-button">Dashboard</a>
                 <a href = "admin-add-user.php" class="nav-button">Add User</a>
-                <a href = "admin-delete-user.php" class="nav-button">Delete User</a>
+                <a href = "admin-delete-user.php" class="nav-button active">Delete User</a>
                 <a href = "admin-add-service.php" class="nav-button">Add Service</a>
                 <a href = "admin-delete-service.php" class="nav-button">Delete Service</a>
                 <a href = "admin-customers.php" class="nav-button">Customers</a>
                 <a href = "" class="nav-button">Logout</a>
             </nav>
             <div class="content-area">
-              <div class="content-header">
-                <h1 class="bookings-header">Bookings</h1>
-                <input type="search" class="search-bar" placeholder="Search...">
-              </div>
-                <div class="bookings-table-container">
-                    <table class="bookings-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Service</th>
-                                <th>Stylist</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Number</th>
-                                <th>Facebook User</th>
-                                <th>Instagram User</th>
-                                <th>Branch</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <form class="customer" action="admin-delete-user" method="POST">
+  <h1 id="pl-admin-header-c">Delete User</h1>
+
+  
+            <div class="bookings-table-container">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                  <!-- JS will inject rows here -->
+                </tbody>
+              </table>
+            </div>
             </div>
         </main>
     </div>
 </section>
-<script src="/scripts/admin/adminDashboard.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || !user.is_admin) {
-        alert("Access denied. Admins only.");
-        window.location.href = 'admin.php'; 
+  async function loadEmployees() {
+    const res = await fetch('/api/admin/employeeShow.php');
+    const data = await res.json();
+    const tableBody = document.getElementById('employeeTableBody');
+    tableBody.innerHTML = '';
+
+    if (!data.success || data.employees.length === 0) {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td colspan="4">No employees found.</td>`;
+      tableBody.appendChild(row);
+      return;
     }
-});
+
+    data.employees
+    .filter(emp => emp.is_admin != 1)
+    .forEach((emp, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${emp.name}</td>
+        <td>${emp.email}</td>
+        <td>
+          <button class="btn danger" onclick="deleteEmployee(${emp.employee_id})">Delete</button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+  }
+
+  async function deleteEmployee(id) {
+    if (!confirm("Are you sure you want to delete this employee?")) return;
+
+    const res = await fetch('/api/admin/employeeDelete.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id })
+    });
+
+    const result = await res.json();
+    alert(result.message);
+    loadEmployees();
+  }
+
+  document.addEventListener('DOMContentLoaded', loadEmployees);
 </script>
+
 </body>
 </html>

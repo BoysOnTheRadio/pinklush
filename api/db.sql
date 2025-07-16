@@ -11,8 +11,8 @@ CREATE TABLE employee (
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-    is_admin BOOLEAN NOT NULL DEFAULT 0;
-    FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
+    is_admin BOOLEAN NOT NULL DEFAULT 0
+    FOREIGN KEY (branch_id) REFERENCES branch(branch_id);
 );
 
 CREATE TABLE schedule (

@@ -1,41 +1,28 @@
 <?php
-header ("Access-Control-Allow-Origin: *");
-header ("Content-Type: application/json");
 
-require_once ".../db_connect.php";
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-$data = json_decode (file_get_contents("php://input"), true);
+require_once __DIR__ . '/../db_connect.php';
+header("Content-Type: application/json");
 
-$employee_id = (int) ($data['employee_id'] ?? 0);
+$data = json_decode(file_get_contents("php://input"), true);
+$employeeId = $data["employee_id"] ?? null;
 
-if (!$employee_id) {
-    echo json_encode ([
-        "success" => false,
-        "message" => "Employee ID is required"
-    ]);
+if (!$employeeId) {
+    echo json_encode(["success" => false, "message" => "No employee ID provided."]);
     exit;
 }
 
 $query = "DELETE FROM employee WHERE employee_id = ?";
-$stmt = mysqli_prepare ($con, $query);
-mysqli_stmt_bind_param($stmt, "i", $employee_id);
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $employeeId);
 
-if (mysqli_stmt_execute($stmt)){
-    echo json_encode(
-        [
-            "success" => true,
-            "message" => "Employee successfully deleted"
-        ]
-        );
-}else {
-    echo json_encode (
-        [
-            "success" => false,
-            "message" => "Failed to delete employee"
-        ]
-        );
+if (mysqli_stmt_execute($stmt)) {
+    echo json_encode(["success" => true, "message" => "Employee deleted."]);
+} else {
+    echo json_encode(["success" => false, "message" => "Deletion failed."]);
 }
-
 
 
 
