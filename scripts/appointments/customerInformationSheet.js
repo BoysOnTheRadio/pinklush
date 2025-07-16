@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const name = document.getElementById('customer_name').value.trim();
             const phone = document.getElementById('customer_phone').value.trim();
-            const facebook = document.getElementById('customer_socialmedia_facebook').value.trim();
-            const instagram = document.getElementById('customer_socialmedia_instagram').value.trim();
+            const facebook = document.getElementById('facebook_username').value.trim();
+            const instagram = document.getElementById('instagram_username').value.trim();
             const email = document.getElementById('customer_email').value.trim();
             if (!name || !phone) {
                 alert("Please fill in all customer fields.");
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         appointment_date: appointmentDateTime,
                         customer_name: name,
                         customer_phone: phone,
-                        customer_socialmedia_facebook: facebook,
-                        customer_socialmedia_instagram: instagram,
+                        facebook_username: facebook,
+                        instagram_username: instagram,
                         customer_email: email
 
                     })

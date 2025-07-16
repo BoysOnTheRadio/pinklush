@@ -7,19 +7,39 @@
     <link rel = "stylesheet" href = "pinklush.css">
     <style>
         #pl-modal {
-            background-color: rgb(0, 0, 0, 0.95);
+            background-color: rgb(0, 0, 0, 0.85);
+            backdrop-filter: blur(7.5px);
             position: absolute;
-            animation: fade-in 1.5s; 
+            animation: fade-in 1s; 
             display: flex;
             flex-direction: column;
             justify-content: center;
+            padding:  40px 25px;
+            box-shadow: 0 0 10px white;
+        }
+
+            #modalClose {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 2rem;
+                color: white;
+                cursor: pointer;
+                z-index: 1;
+            }
+
+        .section-divide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
     <section class = "pinklush_background">
 
-        <section class="pl-section">
+        <section class="pl-section scheduled">
             <div id = "pinklush_logo"></div>
             <h1 class = "pl-header-a pl-color-black">
                 Thank you for booking with us!
@@ -28,6 +48,8 @@
         </section>
 
         <div class="pl-section" id = "pl-modal">
+        <span id = "modalClose" onclick = "closeModal()">&times;</span>
+        <div class="section-divide">
             <h1 class = "pl-header-a">
                 You have successfully booked your appointment!
             </h1>
@@ -37,19 +59,11 @@
                 <br>
                 You May Now Close This Window.
             </p>
-            <button class = "btn primary" onclick = "closeModal()">Mama</button>
+        </div>
         </div>
 
     </section>
 
-    <script>
-        const modalBox = document.getElementById('pl-modal');
-        const closeModal = () => {
-            modalBox.style.animation = 'fade-out 1s';
-            modalBox.addEventListener('animationend', () => {
-            modalBox.style.display = 'none';
-            }, {once: true});
-        }
-    </script>
+    <script src = "scripts/Extra/modalBox.js"></script>
 </body>
 </html>

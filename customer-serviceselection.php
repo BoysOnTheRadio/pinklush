@@ -19,7 +19,7 @@
             .service-box {
                 cursor: pointer;
                 background-color: rgb(255, 255, 255);
-                padding: 20px;
+                padding: 15px;
                 border-radius: 5px;
                 transition: all ease 0.4s;
                 display: flex;
@@ -63,17 +63,25 @@
                     }
 
             .pl-pagination {
-                background-color: gray;
                 margin: 25px;
             }
 
-                #pl-icon {
+                .pl-icon {
                     margin: 5px;
                     cursor: pointer;
                     background-color: pink;
-                    padding: 5px 13px;
+                    padding: 5px 12px;
                     border-radius: 100%;
-                    /* display: inline-flex; */
+                    background: none;
+                    transition: 1s ease;
+                }
+
+                    #icon-active {
+                        background-color: pink;
+                    }
+
+                .pl-icon:hover {
+                    background-color: pink;
                 }
 
             #service-box-header {font-size: 0.8rem;}
@@ -100,12 +108,12 @@
             <input type = "hidden" name = "service-id" id = "selected" value = "">
 
             <div class="pl-pagination">
-                <span class = "pl-icon toggle-direction" class = "pagination-icon" onclick = "paginationleft()"><</span>
-                    <span id = "pl-icon">1</span>
-                    <span id = "pl-icon">2</span>
-                    <span id = "pl-icon">3</span>
-                    <span id = "pl-icon">4</span>
-                <span class = "pl-icon toggle-direction" class = "pagination-icon" onclick = "paginationright()">></span>
+                <span class = "toggle-direction pl-icon" onclick = "paginationleft()"><</span>
+                    <span class = "pl-icon">1</span>
+                    <span class = "pl-icon">2</span>
+                    <span class = "pl-icon">3</span>
+                    <span class = "pl-icon">4</span>
+                <span class = "pl-icon toggle-direction pl-icon" onclick = "paginationright()">></span>
             </div>
             
             <button class = "btn primary" id = "submit-btn" type = "submit" disabled>

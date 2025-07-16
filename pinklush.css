@@ -81,11 +81,15 @@ html, body {
 #pinklush_logo {
   width: 150px;
   height: 150px;
-  background: url(https://scontent.fceb5-1.fna.fbcdn.net/v/t39.30808-6/302433455_507938008002357_816322531853507384_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ha2kvGkT5AgQ7kNvwG_hMsV&_nc_oc=Adm7uWOJbaQ2j-lPYrboKoxSoAEJ1rfc2xRFMXEEBSMaWfYyHKmriMmUeps-8dYbRuk&_nc_zt=23&_nc_ht=scontent.fceb5-1.fna&_nc_gid=PFfTWWTfpjtn7d6MDWcWeQ&oh=00_AfSbSPJDNiUA_qltFklSRZQyVp1mG3eUPurrUT4fgVlULA&oe=687CADE8) no-repeat center center / cover;
+  background:
+  url(https://scontent.fceb5-1.fna.fbcdn.net/v/t39.30808-6/302433455_507938008002357_816322531853507384_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ha2kvGkT5AgQ7kNvwG_hMsV&_nc_oc=Adm7uWOJbaQ2j-lPYrboKoxSoAEJ1rfc2xRFMXEEBSMaWfYyHKmriMmUeps-8dYbRuk&_nc_zt=23&_nc_ht=scontent.fceb5-1.fna&_nc_gid=PFfTWWTfpjtn7d6MDWcWeQ&oh=00_AfSbSPJDNiUA_qltFklSRZQyVp1mG3eUPurrUT4fgVlULA&oe=687CADE8) no-repeat center center / cover,
+  url(https://instagram.fceb6-3.fna.fbcdn.net/v/t51.2885-19/118723958_1656299674546753_7130968569006909086_n.jpg?stp=dst-jpg_s320x320_tt6&_nc_ht=instagram.fceb6-3.fna.fbcdn.net&_nc_cat=101&_nc_oc=Q6cZ2QGRPS3ZBxc_UvZbEUHGiHEr32A1NaIuDRDLC5FV9PoQA9pblXIzf0tnqKC4oCut_eQ&_nc_ohc=bBYHiMVwnPkQ7kNvwFWFWiY&_nc_gid=I9wSwMOs8rNo2h8nJr86Qg&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfTVpmBRGQTQRT7uOnsXDb5PL7tuJ6vkidHNuwW2OiOhMg&oe=687D9BBC&_nc_sid=8b3546) no-repeat center center / cover,
+  url(images/pinklush_logo.jpg) no-repeat center center / cover;
   border-radius: 50%;
   margin: 50px;
   animation: fade-in 1s;
   transition: 1s ease all;
+  display: inline-block;
 }
 
   .pl-header-a {
@@ -178,6 +182,7 @@ html, body {
     .selected {
       outline: 4px solid hotpink;
       background-color: rgb(255,223,228);
+      z-index: 1;
     }
 
     #pl-highlight-a {font-weight: 700;}
@@ -220,4 +225,9 @@ html, body {
   @keyframes fade-out {
     0% { opacity: 1;}
     100% { opacity: 0; transform: scale(0.8); }
+  }
+
+  @keyframes grow-out {
+    0% {transform: scale(0.5);}
+    100% {transform: scale(1);}
   }

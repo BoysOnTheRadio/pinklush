@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     slots.forEach(slot => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'time-slot-btn';
+        btn.className = 'time-slot-item';
         btn.textContent = slot;
 
         const isFullyBooked = (bookedSlots[slot] || 0) >= maxPerSlot;

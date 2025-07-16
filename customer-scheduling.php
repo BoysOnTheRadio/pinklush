@@ -180,7 +180,7 @@
       .calendar-grid {
           display: grid;
           max-width: 500px;
-          width: 50%;
+          width: 100%;
           gap: 0.5rem;
           padding: 1rem;
           background-color: rgb(255, 240, 245);
@@ -289,7 +289,10 @@
           margin-top: 0.5rem;
       }
 
-      .time-slot-box {animation: fade-in 2.2s;}
+      .time-slot-box {
+        transition: 1s ease all;
+        animation: fade-in 2.2s;
+    }
 
       @media (max-width: 1024px) {
           .scheduling-grid {

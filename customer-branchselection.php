@@ -69,10 +69,12 @@
                     overflow: hidden;
                     position: relative;
                     outline: 3px solid pink;
-                    min-height: 100px;
-                    min-width: 100px;
                     margin: 10px;
                     }
+                        .image-wimg {
+                            width: 100%;
+                            height: 100%;
+                        }
 
                     .image-wrapper:before {
                         position: absolute;
