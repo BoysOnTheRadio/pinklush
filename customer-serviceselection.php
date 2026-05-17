@@ -7,6 +7,31 @@
     <link rel = "stylesheet" href = "pinklush.css">
 </head>
     <style>
+        .search-bar {
+        width: 100%;
+        max-width: 400px;
+        padding: 0.8rem 1.2rem;
+        border: 1px solid rgba(255, 105, 180, 0.2);
+        border-radius: 8px;
+        background-color: rgb(255, 245, 248);
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        color: #333;
+        transition: 0.3s ease;
+        margin: 0 0 0 50px;
+        }
+
+        .search-bar::placeholder {
+        color: #aaa;
+        font-style: italic;
+        }
+
+        .search-bar:focus {
+        outline: none;
+        border-color: hotpink;
+        box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+        }
+        
         .services-group {
             width: 120%;
             display: grid;
@@ -14,6 +39,7 @@
             justify-content: center;
             justify-items: center;
             gap: 50px;
+            min-height: 500px; /* Adjust this value as needed */
         }
         
             .service-box {
@@ -100,7 +126,7 @@
             <h1 class = "pl-header-a">
                 Select service type
             </h1>
-
+                <input type="search" class="search-bar" placeholder="Search...">
                 <div class="services-group">
 
                 </div>

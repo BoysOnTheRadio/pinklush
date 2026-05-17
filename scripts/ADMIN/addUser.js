@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.customer');
   const submitBtn = document.getElementById('submit-btn');
   const branchSelect = document.getElementById('branch_id');
+  const nameInput = document.getElementById('employee_name');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
 
   // Load branches into the dropdown
   async function loadBranches() {
@@ -27,15 +30,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadBranches();
 
+
+  function checkFields() {
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const branch = branchSelect.value.trim();
+    if (name && email && password && branch) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  [nameInput, emailInput, passwordInput, branchSelect].forEach(input => {
+    input.addEventListener('input', checkFields);
+    input.addEventListener('change', checkFields);
+  });
+
+
+  checkFields();
+
   // Form submission logic
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const data = {
-      name: document.getElementById('employee_name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      password: document.getElementById('password').value.trim(),
-      branch_id: document.getElementById('branch_id').value.trim()
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      password: passwordInput.value.trim(),
+      branch_id: branchSelect.value.trim()
     };
 
     try {
@@ -52,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (result.success) {
         alert(`Success: ${result.message}`);
         form.reset();
+        checkFields(); // re-disable after reset
       } else {
         alert(`Failed: ${result.message}`);
       }

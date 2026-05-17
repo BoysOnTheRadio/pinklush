@@ -10,16 +10,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const submitBtn     = document.getElementById('submit-btn');
   const hidden        = document.getElementById('selected');
   const form          = document.querySelector('form.pl-section');
+  const searchInput = document.querySelector('.search-bar');
 
   let servicesData = [];
+  let filteredServices = [];
   let currentPage  = 1;
   const perPage    = 14;
+
+  
 
   // ——— Render a single page of services ———
   function renderPage(page) {
     servicesGroup.innerHTML = '';
     const start = (page - 1) * perPage;
-    const slice = servicesData.slice(start, start + perPage);
+    const slice = filteredServices.slice(start, start + perPage);
 
     if (!slice.length) {
       servicesGroup.innerHTML = '<p>No services available for this page.</p>';
@@ -107,7 +111,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     .then(r => r.json())
     .then(data => {
       servicesData = data;
-      buildPagination(data.length);
+      filteredServices = data.slice();
+      buildPagination(filteredServices.length);
       renderPage(currentPage);
     })
     .catch(() => {
@@ -122,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
   window.paginationright = () => {
-    const max = Math.ceil(servicesData.length / perPage);
+    const max = Math.ceil(filteredServices.length / perPage);
     if (currentPage < max) {
       renderPage(++currentPage);
     }
@@ -136,5 +141,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       AppointmentStorage.set('service_id', serviceId);
       window.location.href = 'customer-scheduling.php';
     }
+  });
+
+  // Add this function to filter services
+  function filterServices(query) {
+    query = query.trim().toLowerCase();
+    if (!query) {
+      filteredServices = servicesData.slice();
+    } else {
+      filteredServices = servicesData.filter(service =>
+        service.service_name.toLowerCase().includes(query) ||
+        (service.description && service.description.toLowerCase().includes(query))
+        // Add more fields if needed
+      );
+    }
+    currentPage = 1;
+    buildPagination(filteredServices.length);
+    renderPage(currentPage);
+  }
+
+  // Listen for input on the search bar
+  searchInput.addEventListener('input', (e) => {
+    filterServices(e.target.value);
   });
 });

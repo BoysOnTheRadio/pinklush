@@ -6,12 +6,43 @@
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="pinklush_admin.css">
 <style>
-
   html, body {
   height: 100%;
   margin: 0;
   overflow-y: hidden; 
 }
+
+/* Status dropdown styles for admin dashboard */
+.status-select {
+  padding: 0.5rem 1.2rem;
+  border: 1.5px solid #e96994;
+  border-radius: 8px;
+  background-color: #fff0f6;
+  color: #e96994;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(233, 105, 148, 0.08);
+}
+
+.status-select:focus {
+  border-color: hotpink;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.15);
+  background-color: #ffe4ef;
+}
+
+.status-select option {
+  color: #e96994;
+  background: #fff0f6;
+  font-size: 1rem;
+}
+
+.status-select option:checked {
+  background: #ffe4ef;
+  color: #d72660;
+} 
 
 .dashboard-container {
   display: flex;
@@ -151,7 +182,7 @@
                 <a href = "admin-add-service.php" class="nav-button">Add Service</a>
                 <a href = "admin-delete-service.php" class="nav-button">Delete Service</a>
                 <a href = "admin-customers.php" class="nav-button">Customers</a>
-                <a href = "" class="nav-button">Logout</a>
+                <a href = "" class="nav-button" id="logoutBtn">Logout</a>
             </nav>
             <div class="content-area">
               <div class="content-header">
@@ -185,6 +216,14 @@
                                 <td>XXX</td>
                                 <td>XXX</td>
                                 <td>XXX</td>
+                                <td>
+                                  <select class="status-select" data-id="${appt.appointment_id}">
+                                    <option value="pending" ${appt.status === 'pending' ? 'selected' : ''}>pending</option>
+                                    <option value="done" ${appt.status === 'done' ? 'selected' : ''}>done</option>
+                                    <option value="cancelled" ${appt.status === 'cancelled' ? 'selected' : ''}>cancelled</option>
+                                    <option value="no show" ${appt.status === 'no show' ? 'selected' : ''}>no show</option>
+                                  </select>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -201,6 +240,17 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Access denied. Admins only.");
         window.location.href = 'admin.php'; 
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'admin.php';
+    });
+  }
 });
 </script>
 </body>
