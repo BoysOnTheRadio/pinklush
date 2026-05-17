@@ -10,7 +10,7 @@ CREATE TABLE employee (
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
-    is_admin BOOLEAN NOT NULL DEFAULT 0;
+    is_admin BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE schedule (
@@ -31,7 +31,7 @@ CREATE TABLE service (
     description VARCHAR(255),
     duration INT, -- in minutes
     price DECIMAL(10,2),
-    max_bookings_per_slot INT DEFAULT 1;
+    max_bookings_per_slot INT DEFAULT 1
 );
 
 CREATE TABLE employeeservices (
