@@ -31,34 +31,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderAppointments(appointments) {
     tableBody.innerHTML = ''; 
+    
+    appointments = appointments.filter(appt => appt.status === 'Scheduled');
 
     appointments.forEach((appt, index) => {
-    const dateTime = new Date(appt.appointment_date);
-    const date = dateTime.toLocaleDateString();
-    const time = dateTime.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-    }).replace(/ AM| PM/, '');
+      const dateTime = new Date(appt.appointment_date);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }).replace(/ AM| PM/, '');
 
-    console.log(dateTime.toString());
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${appt.customer_name || '—'}</td>
+          <td>${appt.service_type || '—'}</td>
+          <td>${appt.name || '—'}</td>
+          <td>${date}</td>
+          <td>${time}</td>
+          <td>${appt.customer_phone || '—'}</td>
+          <td>${appt.facebook_username || '—'}</td>
+          <td>${appt.instagram_username || '—'}</td>
+          <td>${appt.address || '—'}</td>
+          <td>
+          <select class="status-select" data-id="${appt.appointment_id}">
+            <option value="scheduled" ${appt.status === 'scheduled' ? 'selected' : ''}>Scheduled</option>
+            <option value="done" ${appt.status === 'done' ? 'selected' : ''}>Done</option>
+            <option value="cancelled" ${appt.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+            <option value="no show" ${appt.status === 'no show' ? 'selected' : ''}>No show</option>
+          </select>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+    addStatusListeners();
+  }
 
+  
 
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${appt.customer_name || '—'}</td>
-        <td>${appt.service_type || '—'}</td>
-        <td>${appt.name || '—'}</td>
-        <td>${date}</td>
-        <td>${time}</td>
-        <td>${appt.customer_phone || '—'}</td>
-        <td>${appt.facebook_username || '—'}</td>
-        <td>${appt.instagram_username || '—'}</td>
-        <td>${appt.address || '—'}</td>
-        <td>${appt.status || '—'}</td>
-    `;
-    tableBody.appendChild(row);
+  function addStatusListeners() {
+    document.querySelectorAll('.status-select').forEach(select => {
+      select.addEventListener('change', function() {
+        const appointmentId = this.dataset.id;
+        const newStatus = this.value;
+  
+        fetch('/api/admin/appointmentStatusUpdate.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ appointment_id: appointmentId, status: newStatus })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            // Remove row if status is done, cancelled, or no show
+            if (['done', 'cancelled', 'no show'].includes(newStatus)) {
+              this.closest('tr').remove();
+            }
+          } else {
+            alert('Failed to update status: ' + (data.message || 'Unknown error'));
+          }
+        })
+        .catch(() => alert('Network error updating status.'));
+      });
     });
   }
 

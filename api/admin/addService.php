@@ -14,8 +14,8 @@ $service_name = $data['service_name'] ?? '';
 $service_type = $data['service_type'] ?? '';
 $price = $data['price'] ?? 0;
 $duration = $data['duration'] ?? 60; // default in minutes
-$branch_ids = $data['branch_ids'] ?? [];
-$employee_ids = $data['employee_ids'] ?? [];
+$branch_ids = $data['branch_id'] ?? [];
+$employee_ids = $data['employee_id'] ?? [];
 
 if (!$service_name || !$service_type || !$price || empty($branch_ids) || empty($employee_ids)) {
     echo json_encode([

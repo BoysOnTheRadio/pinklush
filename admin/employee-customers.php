@@ -172,16 +172,12 @@
     <div class="dashboard-container">
         <header class="dashboard-header">
             <div class="site-name">Pink Lush Beauty Lounge</div>
-            <div class="user-name">Admin</div>
+            <div class="user-name">Employee</div>
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "admin-dashboard.php" class="nav-button">Dashboard</a>
-                <a href = "admin-add-user.php" class="nav-button">Add User</a>
-                <a href = "admin-delete-user.php" class="nav-button">Delete User</a>
-                <a href = "admin-add-service.php" class="nav-button">Add Service</a>
-                <a href = "admin-delete-service.php" class="nav-button">Delete Service</a>
-                <a href = "admin-customers.php" class="nav-button active">Customers</a>
+                <a href = "employee-dashboard.php" class="nav-button">Dashboard</a>
+                <a href = "employee-customers.php" class="nav-button active">Customers</a>
                 <a href = "" class="nav-button" id="logoutBtn">Logout</a>
             </nav>
             <div class="content-area">
@@ -274,13 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || !user.is_admin) {
-        alert("Access denied. Admins only.");
-        window.location.href = 'admin.php'; 
-    }
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.getElementById('logoutBtn');

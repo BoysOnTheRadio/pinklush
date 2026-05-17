@@ -169,9 +169,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            selectedTimeSlot = slot;
+            if (btn.classList.contains('selected')) {
+                // Deselect if already selected
+                btn.classList.remove('selected');
+                selectedTimeSlot = null;
+            } else {
+                // Deselect all, then select this one
+                document.querySelectorAll('.time-slot-item').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedTimeSlot = slot;
+            }
             updateConfirmState();
         });
 

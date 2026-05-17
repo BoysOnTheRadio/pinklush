@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const duration = document.getElementById('duration').value;
     const price = document.getElementById('price').value;
     const description = document.getElementById('description').value;
+    const serviceType = document.getElementById('service_type').value;
 
     const branchIds = Array.from(document.querySelectorAll('input[name="branches[]"]:checked')).map(cb => cb.value);
     const employeeIds = Array.from(document.querySelectorAll('input[name="employees[]"]:checked')).map(cb => cb.value);
@@ -73,11 +74,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         service_name: serviceName,
+        service_type: serviceType,
         duration: duration,
         price: price,
         description: description,
-        branch_ids: branchIds,
-        employee_ids: employeeIds
+        branch_id: branchIds,
+        employee_id: employeeIds
       })
     });
 

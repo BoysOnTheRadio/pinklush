@@ -3,9 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Employee Dashboard</title>
 <link rel="stylesheet" href="pinklush_admin.css">
 <style>
+  html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: hidden; 
+}
+
+/* Status dropdown styles for admin dashboard */
+.status-select {
+  padding: 0.5rem 1.2rem;
+  border: 1.5px solid #e96994;
+  border-radius: 8px;
+  background-color: #fff0f6;
+  color: #e96994;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(233, 105, 148, 0.08);
+}
+
+.status-select:focus {
+  border-color: hotpink;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.15);
+  background-color: #ffe4ef;
+}
+
+.status-select option {
+  color: #e96994;
+  background: #fff0f6;
+  font-size: 1rem;
+}
+
+.status-select option:checked {
+  background: #ffe4ef;
+  color: #d72660;
+} 
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  max-width: 80%;
+}
+
+.dashboard-main {
+  overflow-y: hidden; 
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+
   .bookings-header {
   font-family: "Playfair Display", serif;
   font-size: clamp(2rem, 4vw, 3rem);
@@ -39,18 +95,24 @@
 }
 
 .bookings-table-container {
-  overflow-x: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  background-color: white;
   width: 100%;
   border-radius: 10px;
   border: 1px solid rgba(255, 105, 180, 0.2);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   background-color: rgb(255, 240, 245);
+  max-height: 700px;
+  
 }
 
 .bookings-table {
   width: 100%;
   border-collapse: collapse;
   min-width: 800px;
+  overflow-y: auto; 
 }
 
 .bookings-table th,
@@ -61,6 +123,7 @@
   font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   color: #333;
+   overflow-y: auto; 
 }
 
 .bookings-table th {
@@ -113,8 +176,9 @@
         </header>
         <main class="dashboard-main">
             <nav class="sidebar">
-                <a href = "" class="nav-button active">Dashboard</a>
-                <a href = "" class="nav-button">Logout</a>
+                <a href = "employee-dashboard.php" class="nav-button active">Dashboard</a>
+                <a href = "employee-customers.php" class="nav-button">Customers</a>
+                <a href = "" class="nav-button" id="logoutBtn">Logout</a>
             </nav>
             <div class="content-area">
               <div class="content-header">
@@ -128,25 +192,17 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Service</th>
+                                <th>Stylist</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Number</th>
                                 <th>Facebook User</th>
                                 <th>Instagram User</th>
+                                <th>Branch</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                            </tr>
+                        <tbody id="employeeTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -154,15 +210,126 @@
         </main>
     </div>
 </section>
-<script src="/scripts/admin/adminDashboard.js"></script>
 <script>
-    const user = JSON.parse(localStorage.getItem('user'));
+document.addEventListener('DOMContentLoaded', () => {
+  // Check employee access
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || user.is_admin) {
+    alert("Access denied. Employees only.");
+    window.location.href = 'admin.php';
+    return;
+  }
 
-    if (!user) {
-        alert("You must log in first.");
-        window.location.href = "index.html"; // or login page
-        return;
-    }
+  const tableBody = document.getElementById('employeeTableBody');
+  const searchInput = document.querySelector('.search-bar');
+
+  // Fetch and display appointments for this employee
+  fetchEmployeeAppointments();
+
+  function fetchEmployeeAppointments() {
+    fetch(`/api/admin/appointmentGET.php?employee_id=${user.employee_id}`) 
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          renderAppointments(data.appointments);
+        } else {
+          tableBody.innerHTML = `<tr><td colspan="11">No appointments found.</td></tr>`;
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching appointments:', err);
+        tableBody.innerHTML = `<tr><td colspan="11">Error loading data.</td></tr>`;
+      });
+  }
+
+  function renderAppointments(appointments) {
+    tableBody.innerHTML = ''; 
+    
+    appointments = appointments.filter(appt => appt.status === 'Scheduled');
+
+    appointments.forEach((appt, index) => {
+      const dateTime = new Date(appt.appointment_date);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }).replace(/ AM| PM/, '');
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${appt.customer_name || '—'}</td>
+          <td>${appt.service_type || '—'}</td>
+          <td>${appt.name || '—'}</td>
+          <td>${date}</td>
+          <td>${time}</td>
+          <td>${appt.customer_phone || '—'}</td>
+          <td>${appt.facebook_username || '—'}</td>
+          <td>${appt.instagram_username || '—'}</td>
+          <td>${appt.address || '—'}</td>
+          <td>
+          <select class="status-select" data-id="${appt.appointment_id}">
+            <option value="Scheduled" ${appt.status === 'Scheduled' ? 'selected' : ''}>Scheduled</option>
+            <option value="done" ${appt.status === 'done' ? 'selected' : ''}>Done</option>
+            <option value="cancelled" ${appt.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+            <option value="no show" ${appt.status === 'no show' ? 'selected' : ''}>No show</option>
+          </select>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+    addStatusListeners();
+  }
+
+  function addStatusListeners() {
+    document.querySelectorAll('.status-select').forEach(select => {
+      select.addEventListener('change', function() {
+        const appointmentId = this.dataset.id;
+        const newStatus = this.value;
+  
+        fetch('/api/admin/appointmentStatusUpdate.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ appointment_id: appointmentId, status: newStatus })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            // Remove row if status is done, cancelled, or no show
+            if (['done', 'cancelled', 'no show'].includes(newStatus)) {
+              this.closest('tr').remove();
+            }
+          } else {
+            alert('Failed to update status: ' + (data.message || 'Unknown error'));
+          }
+        })
+        .catch(() => alert('Network error updating status.'));
+      });
+    });
+  }
+
+  // Live Search Functionality
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('#employeeTableBody tr');
+
+    rows.forEach(row => {
+      const rowText = row.textContent.toLowerCase();
+      row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+    });
+  });
+
+  // Logout functionality
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'admin.php';
+    });
+  }
+});
 </script>
 </body>
 </html>

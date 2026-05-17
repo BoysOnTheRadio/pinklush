@@ -57,10 +57,9 @@ CREATE TABLE appointments (
     customer_name VARCHAR(100) NOT NULL,
     customer_phone VARCHAR(15),
     appointment_date DATETIME,
-    status VARCHAR(20) DEFAULT 'Scheduled',
+    status VARCHAR(20) DEFAULT 'scheduled',
         facebook_username VARCHAR(50) DEFAULT NULL,
         instagram_username VARCHAR(50) DEFAULT NULL,
-        customer_email VARCHAR(50),
     email VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY (service_id) REFERENCES service(service_id),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)

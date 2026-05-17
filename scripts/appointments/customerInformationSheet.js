@@ -11,41 +11,55 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-        const form = document.getElementById('cinfo');
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    const form = document.getElementById('cinfo');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const name = document.getElementById('customer_name').value.trim();
-            const phone = document.getElementById('customer_phone').value.trim();
-            const facebook = document.getElementById('facebook_username').value.trim();
-            const instagram = document.getElementById('instagram_username').value.trim();
-            const email = document.getElementById('customer_email').value.trim();
-            if (!name || !phone) {
-                alert("Please fill in all customer fields.");
+        const name = document.getElementById('customer_name').value.trim();
+        const phone = document.getElementById('customer_phone').value.trim();
+        const facebook = document.getElementById('facebook_username').value.trim();
+        const instagram = document.getElementById('instagram_username').value.trim();
+        const email = document.getElementById('customer_email').value.trim();
+        if (!name || !phone) {
+            alert("Please fill in all customer fields.");
+            return;
+        }
+
+        // Validate Philippine phone number
+        // Accepts: 09XXXXXXXXX (11 digits) or +639XXXXXXXXX (13 chars)
+        const phonePH = /^(09\d{9}|\+639\d{9})$/;
+        if (!phonePH.test(phone)) {
+            alert("Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)");
+            return;
+        }
+
+        // Validate email if provided
+        if (email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
                 return;
             }
+        }
 
+        try {
+            const res = await fetch('api/appointments/appointmentPOST.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    employee_id: employeeId,
+                    service_id: serviceId,
+                    appointment_date: appointmentDateTime,
+                    customer_name: name,
+                    customer_phone: phone,
+                    facebook_username: facebook,
+                    instagram_username: instagram,
+                    customer_email: email
+                })
+            });
 
-            try {
-                const res = await fetch('api/appointments/appointmentPOST.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        employee_id: employeeId,
-                        service_id: serviceId,
-                        appointment_date: appointmentDateTime,
-                        customer_name: name,
-                        customer_phone: phone,
-                        facebook_username: facebook,
-                        instagram_username: instagram,
-                        customer_email: email
-
-                    })
-                });
-
-                
             const raw = await res.text();
             console.log('Raw server response:', raw);
 
@@ -65,9 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(result.message || "Failed to book appointment.");
             }
 
-            } catch (err) {
-                console.error(" Network or server error:", err);
-                alert("Something went wrong. Please try again.");
-            };
+        } catch (err) {
+            console.error(" Network or server error:", err);
+            alert("Something went wrong. Please try again.");
+        };
     });
 });

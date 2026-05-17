@@ -15,6 +15,23 @@
             margin: -10px 0 -25px 0;
         }
 
+        .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+        max-width: 80%;
+        }
+
+        .dashboard-main {
+        overflow-y: hidden; 
+        }
+
+        .content-area {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+        }
+
         .customer {
             background-color: #ffdfee;
             outline: 2px solid hotpink;
@@ -112,7 +129,7 @@
                 <a href = "admin-add-service.php" class="nav-button">Add Service</a>
                 <a href = "admin-delete-service.php" class="nav-button">Delete Service</a>
                 <a href = "admin-customers.php" class="nav-button">Customers</a>
-                <a href = "" class="nav-button">Logout</a>
+                <a href = "" class="nav-button" id="logoutBtn">Logout</a>
             </nav>
             <div class="content-area cinfo">
                 
@@ -153,5 +170,25 @@
     </div>
 </section>
 <script src="/scripts/admin/addUser.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.is_admin) {
+        alert("Access denied. Admins only.");
+        window.location.href = 'admin.php'; 
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'admin.php';
+    });
+  }
+});
+</script>
 </body>
 </html>

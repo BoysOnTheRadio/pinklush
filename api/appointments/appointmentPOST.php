@@ -3,16 +3,16 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: POST");
 
-require_once "../db_connect.php"; // this should define $conn as a MySQLi connection
+require_once "../db_connect.php"; 
 
-// Enable error reporting for debugging (remove in production)
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Get JSON input
+
 $input = json_decode(file_get_contents("php://input"));
 
-// Check required fields
+
 if (
     !isset($input->service_id) ||
     !isset($input->employee_id) ||
@@ -25,7 +25,7 @@ if (
     exit;
 }
 
-// Optional fields (use null if not provided)
+// Optional fields
 $facebook = $input->customer_socialmedia_facebook ?? null;
 $instagram = $input->customer_socialmedia_instagram ?? null;
 $email = $input->customer_email ?? null;
@@ -47,9 +47,18 @@ if (!$exists) {
 // Insert appointment
 $stmt = $conn->prepare("
     INSERT INTO appointments 
-    (employee_id, service_id, customer_name, customer_phone, appointment_date, facebook_username, instagram_username, customer_email) 
+    (employee_id, service_id, customer_name, customer_phone, appointment_date, facebook_username, instagram_username, email) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ");
+
+if (!$stmt) {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Database error: " . $conn->error
+    ]);
+    exit;
+}
 
 $stmt->bind_param(
     "iissssss",

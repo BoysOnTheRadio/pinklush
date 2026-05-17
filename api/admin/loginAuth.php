@@ -51,7 +51,7 @@ if ($employee) {
     } else {
         echo json_encode([
             "success" => false,
-            "message" => "Incorrect password"
+            "message" => "Incorrect password" 
         ]);
     }
 } else {
@@ -61,3 +61,4 @@ if ($employee) {
     ]);
 }
 ?>
+ 

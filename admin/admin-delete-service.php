@@ -12,6 +12,27 @@
   overflow-y: hidden; 
 }
 
+.btn.danger {
+    background: linear-gradient(90deg, #e96994 0%, #d72660 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(233, 105, 148, 0.08);
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+    outline: none;
+  }
+  .btn.danger:hover, .btn.danger:focus {
+    background: linear-gradient(90deg, #d72660 0%, #e96994 100%);
+    box-shadow: 0 4px 16px rgba(215, 38, 96, 0.15);
+    transform: translateY(-2px) scale(1.04);
+  }
+
+
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -154,11 +175,11 @@ h1{
                 <a href = "admin-add-service.php" class="nav-button">Add Service</a>
                 <a href = "admin-delete-service.php" class="nav-button active">Delete Service</a>
                 <a href = "admin-customers.php" class="nav-button">Customers</a>
-                <a href = "" class="nav-button">Logout</a>
+                <a href = "" class="nav-button" id="logoutBtn">Logout</a>
             </nav>
             <div class="content-area">
                 <form class="customer" action="admin-delete-user" method="POST">
-                <h1 id="pl-admin-header-c">Delete User</h1>
+                <h1 id="pl-admin-header-c">Delete Service</h1>
 
   
             <div class="bookings-table-container">
@@ -230,6 +251,26 @@ h1{
       console.error("Error deleting service:", err);
     }
   }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.is_admin) {
+        alert("Access denied. Admins only.");
+        window.location.href = 'admin.php'; 
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      window.location.href = 'admin.php';
+    });
+  }
+});
 </script>
 
 </body>
