@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     employee_id: employeeId,
                     service_id: serviceId,
+                    branch_id: branchId,
                     appointment_date: appointmentDateTime,
                     customer_name: name,
                     customer_phone: phone,
