@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Branch Selection</title>
-    <link rel = "stylesheet" href = "pinklush.css">
+    <link rel="stylesheet" href="pinklush.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
     /* Branch Selection Boxes */
         .branch-items {
@@ -110,6 +113,9 @@
 
             <section class="branch-items">
             </section>
+            
+            <div id="map" style="width: 100%; height: 350px; border-radius: 10px; margin: 20px 0; outline: 3px solid pink;"></div>
+
             <input type="hidden" name="branch-id" id="selected" value="">
                 <button class = "btn primary" id = "submit-btn" type = "submit" disabled>
                     Continue
@@ -120,5 +126,7 @@
     
     <script src="scripts/appointments/appointmentStorage.js" defer></script>
     <script src="scripts/appointments/customerBranchSelection.js"></script>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
 </html>
